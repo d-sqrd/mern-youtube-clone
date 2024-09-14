@@ -1,3 +1,5 @@
 node_modules/
 .env
+.env.local
 Features.txt
+raw_YT_data.js
