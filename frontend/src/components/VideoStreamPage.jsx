@@ -16,14 +16,13 @@ const VideoStreamPage = () => {
     console.log(`handleOnProgress = ${JSON.stringify(event)}`);
   };
   return (
-    <Box sx={{ marginTop: 1, background: "#888888" }}>
+    <Box sx={{ marginTop: 1, background: "#fff" }}>
       <Grid2 container display="flex" direction="row">
         <Grid2 size={{ md: 9 }}>
-          <Box>
+          <Box sx={{ margin: 1 }}>
             <Box
               sx={{
                 borderRadius: "10px",
-                // border: "5px solid red",
                 overflow: "hidden",
               }}
             >
@@ -62,10 +61,12 @@ const VideoStreamPage = () => {
                 <Box>
                   <Box sx={{ height: "100px", borderRadius: "15px" }}>
                     <Paper
+                      elevation={4}
                       sx={{
                         height: "100%",
                         padding: "10px",
-                        background: "#888899",
+                        background: "#88b6bd",
+                        fontColor: "#fff",
                       }}
                     >
                       <Typography>{videoDetail.snippet.description}</Typography>
@@ -77,7 +78,9 @@ const VideoStreamPage = () => {
           </Box>
         </Grid2>
         <Grid2 size={{ md: 3 }}>
-          <SuggestedVideos />
+          <Box>
+            <SuggestedVideos parentVideoId={videoId} />
+          </Box>
         </Grid2>
       </Grid2>
     </Box>

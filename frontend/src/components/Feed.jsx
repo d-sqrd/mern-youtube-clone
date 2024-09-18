@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Grid2 } from "@mui/material";
 
-import data from "../raw_YT_data";
+import data from "../feedVideos";
 import VideoCard from "./VideoCard";
 import Loading from "./Loading";
 
@@ -12,7 +12,7 @@ const Feed = () => {
   const fetchFeedData = async () => {
     const options = {
       method: "GET",
-      url: process.env.REACT_APP_URL,
+      url: process.env.REACT_APP_URL + "/search",
       params: {
         q: "music",
         part: "snippet,id",
@@ -25,7 +25,7 @@ const Feed = () => {
         "x-rapidapi-host": process.env.REACT_APP_HOST,
       },
     };
-
+    console.log(`options = ${options.url}`);
     try {
       const response = await axios.request(options);
       console.log(response.data);
