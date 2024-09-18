@@ -5,13 +5,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 const VideoCard = ({ videoDetail }) => {
-  console.log(videoDetail);
-  const handleClick = (event) => {
-    console.log(`Event = ${event.currentTarget.getAttribute("videoDetail")}`);
+  const navigate = useNavigate();
+  // console.log(videoDetail);
+  const handleClick = () => {
+    navigate(`/video/${videoDetail.id.videoId}`, {
+      state: { videoDetail: videoDetail },
+    });
+    console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
   };
   return (
-    <Card sx={{ height: 250 }}>
+    <Card
+      sx={{
+        height: 250,
+        minWidth: "md",
+      }}
+    >
       <CardMedia
         component="img"
         alt={videoDetail.snippet.description}
@@ -19,6 +29,7 @@ const VideoCard = ({ videoDetail }) => {
         image={videoDetail.snippet.thumbnails.medium.url}
         videoDetail={videoDetail}
         onClick={handleClick}
+        sx={{ objectFit: "fill" }}
       />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">

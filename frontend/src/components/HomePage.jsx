@@ -3,19 +3,23 @@ import React from "react";
 import { useEffect } from "react";
 import SideBar from "./SideBar";
 import Feed from "./Feed";
+import useWindowSize from "../hooks/useWindowSize";
 
 const HomePage = () => {
+  const size = useWindowSize();
   useEffect(() => {
     // fetch different category YT videos to show on initial page load
   }, []);
   return (
     // <Box sx={{ height: "100vh", border: 1 }}>
-    <Box sx={{ marginTop: "30px" }}>
+    <Box sx={{ marginTop: 1 }}>
       <Grid2 container display="flex" direction="row">
-        <Grid2 size={3}>
-          <SideBar />
-        </Grid2>
-        <Grid2 size={9}>
+        {size.width >= 600 && (
+          <Grid2 size={3}>
+            <SideBar />
+          </Grid2>
+        )}
+        <Grid2 size={{ sm: 9 }}>
           <Feed />
         </Grid2>
       </Grid2>

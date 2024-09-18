@@ -48,7 +48,7 @@ const Feed = () => {
         {feedVideosLoaded ? (
           feedVideos.map((videoItem, index) => {
             return (
-              <Grid2 size={{ sm: 6, lg: 4 }}>
+              <Grid2 size={{ sm: 6, md: 4, xl: 3 }}>
                 <VideoCard videoDetail={videoItem} key={index} />
               </Grid2>
             );
