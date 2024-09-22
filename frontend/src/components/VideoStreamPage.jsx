@@ -5,10 +5,9 @@ import { Box, Button, Typography, Grid2, Paper } from "@mui/material";
 import SuggestedVideos from "./SuggestedVideos";
 import SideBar from "./SideBar";
 
-const VideoStreamPage = ({ sidebarVisibility, setSidebarVisibility }) => {
+const VideoStreamPage = ({ sidebarVisibility }) => {
   const { videoId } = useParams();
   const url = `https://www.youtube.com/watch?v=${videoId}`;
-  // console.log(`Params = ${videoId}`);
   const {
     state: { videoDetail },
   } = useLocation();

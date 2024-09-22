@@ -1,15 +1,16 @@
 import "./App.css";
-
-import HomePage from "./components/HomePage";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./components/HomePage";
 import VideoStreamPage from "./components/VideoStreamPage";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
+import LoginModal from "./components/LoginModal";
 
 function App() {
   const [searchbarString, setSearchbarString] = useState("");
   const [sidebarVisibility, setSidebarVisibility] = useState(true);
+  const [loginModalVisibility, setLoginModalVisibility] = useState(false);
+  // console.log(`App.js searchbarString = ${searchbarString}`);
   return (
     <div className="App">
       <Router>
@@ -17,7 +18,9 @@ function App() {
           setSearchbarString={setSearchbarString}
           sidebarVisibility={sidebarVisibility}
           setSidebarVisibility={setSidebarVisibility}
+          setLoginModalVisibility={setLoginModalVisibility}
         />
+        <LoginModal loginModalVisibility={loginModalVisibility} />
         <Routes>
           <Route
             path="/"
@@ -30,12 +33,7 @@ function App() {
           />
           <Route
             path="/video/:videoId"
-            element={
-              <VideoStreamPage
-                sidebarVisibility={sidebarVisibility}
-                setSidebarVisibility={setSidebarVisibility}
-              />
-            }
+            element={<VideoStreamPage sidebarVisibility={sidebarVisibility} />}
           />
         </Routes>
       </Router>

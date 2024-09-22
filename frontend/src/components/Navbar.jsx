@@ -12,6 +12,7 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,27 +60,34 @@ export default function Navbar({
   setSearchbarString,
   sidebarVisibility,
   setSidebarVisibility,
+  setLoginModalVisibility,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+
   const handleYTIcon = () => {
     navigate("/");
+  };
+  const handleMenu = (event) => {
+    // setAnchorEl(event.currentTarget);
+    console.log("menu clicked");
+    setSidebarVisibility(!sidebarVisibility);
   };
 
   const handleSearch = () => {
     console.log(`search bar val = ${inputRef.current.value}`);
     setSearchbarString(inputRef.current.value);
-  };
-  const handleMenu = (event) => {
-    // setAnchorEl(event.currentTarget);
-    console.log("menu clicked");
-    // console.log(sideBarVisible);
-    setSidebarVisibility(!sidebarVisibility);
+    setSidebarVisibility(true);
+    navigate("/");
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLoginClick = () => {
+    setLoginModalVisibility(true);
   };
 
   return (
@@ -139,12 +147,18 @@ export default function Navbar({
             </Search>
           </Box>
           <Box>
+            <Button variant="contained" onClick={handleLoginClick}>
+              Login
+            </Button>
+            <Button variant="contained">Signup</Button>
+          </Box>
+          <Box>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleMenu}
+              // onClick={handleMenu}
               color="inherit"
             >
               <AccountCircle />

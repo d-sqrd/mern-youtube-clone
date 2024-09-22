@@ -6,10 +6,10 @@ import data from "../feedVideos";
 import VideoCard from "./VideoCard";
 import Loading from "./Loading";
 
-const Feed = (props) => {
+const Feed = ({ searchString }) => {
   const [feedVideos, setFeedVideos] = useState([]);
   const [feedVideosLoaded, setFeedVideosLoaded] = useState(false);
-  console.log(`Feed search string = ${props.searchString}`);
+  // console.log(`Feed search string = ${searchString}`);
 
   useEffect(() => {
     const fetchFeedData = async () => {
@@ -17,7 +17,7 @@ const Feed = (props) => {
         method: "GET",
         url: process.env.REACT_APP_URL + "/search",
         params: {
-          q: props.searchString || "music",
+          q: searchString || "music",
           part: "snippet,id",
           regionCode: "US",
           maxResults: "101",
@@ -42,7 +42,8 @@ const Feed = (props) => {
     setFeedVideos(data.items);
     setFeedVideosLoaded(true);
     // console.log(data);
-  }, [props.searchString]);
+  }, [searchString]);
+
   return (
     <Box>
       <Grid2 container spacing={2}>
