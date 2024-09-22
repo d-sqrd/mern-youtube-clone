@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+
 const VideoCard = ({ videoDetail }) => {
   const thumbnailSrc =
     videoDetail?.snippet?.thumbnails?.default?.url ||
@@ -32,7 +33,7 @@ const VideoCard = ({ videoDetail }) => {
           component="img"
           alt={videoDetail?.snippet?.description}
           height="140"
-          image={videoDetail?.snippet?.thumbnails?.default?.url}
+          image={thumbnailSrc}
           videoDetail={videoDetail}
           onClick={handleClick}
           sx={{ objectFit: "fill" }}

@@ -41,9 +41,9 @@ const SuggestedVideos = (props) => {
       }
     };
     // setRelatedVideoId(parentVideoId);
-    fetchSuggestedVideos();
-    // setSuggestedVideos(suggestedVideosLocal);
-    // setIsDataLoaded(true);
+    // fetchSuggestedVideos();
+    setSuggestedVideos(suggestedVideosLocal.items);
+    setIsDataLoaded(true);
   }, [parentVideoId]);
 
   return (

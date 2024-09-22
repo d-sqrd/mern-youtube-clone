@@ -5,10 +5,10 @@ import Feed from "./Feed";
 import useWindowSize from "../hooks/useWindowSize";
 import SideBar from "./SideBar";
 
-const HomePage = (props) => {
+const HomePage = ({ searchbarString, sidebarVisibility }) => {
   const renderCount = useRef(0);
   const size = useWindowSize();
-  console.log(`homepage search bar string = ${props.searchbarString}`);
+  console.log(`homepage search bar string = ${searchbarString}`);
   useEffect(() => {
     renderCount.current += 1;
     // fetch different category YT videos to show on initial page load
@@ -20,11 +20,11 @@ const HomePage = (props) => {
       <Grid2 container display="flex" direction="row">
         {size.width >= 600 && (
           <Grid2 size={3}>
-            <SideBar />
+            <SideBar sidebarVisibility={sidebarVisibility} />
           </Grid2>
         )}
         <Grid2 size={{ sm: 9 }}>
-          <Feed searchString={props.searchbarString} />
+          <Feed searchString={searchbarString} />
         </Grid2>
       </Grid2>
     </Box>

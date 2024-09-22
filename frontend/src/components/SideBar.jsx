@@ -3,7 +3,8 @@ import ImageIcon from "@mui/icons-material/Image";
 import React from "react";
 import axios from "axios";
 
-const SideBar = () => {
+const SideBar = ({ sidebarVisibility }) => {
+  console.log(`Sidebar sidebarVisibility = ${sidebarVisibility}`);
   const fetchCategoryWiseVideos = async (category) => {
     const options = {
       method: "GET",
@@ -43,21 +44,25 @@ const SideBar = () => {
     "News",
   ];
   return (
-    <Box container display="flex" flexDirection="column">
-      {categories.map((categoryItem, index) => {
-        return (
-          <Box key={index} sx={{ marginLeft: "12px" }}>
-            <ListItemButton onClick={() => handleOnClick(categoryItem)}>
-              <ListItemIcon>
-                {/* add utility function to fetch the correct icon for the category */}
-                <ImageIcon />
-              </ListItemIcon>
-              <ListItemText primary={categoryItem} />
-            </ListItemButton>
-          </Box>
-        );
-      })}
-    </Box>
+    <>
+      {sidebarVisibility && (
+        <Box container display="flex" flexDirection="column">
+          {categories.map((categoryItem, index) => {
+            return (
+              <Box key={index} sx={{ marginLeft: "12px" }}>
+                <ListItemButton onClick={() => handleOnClick(categoryItem)}>
+                  <ListItemIcon>
+                    {/* add utility function to fetch the correct icon for the category */}
+                    <ImageIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={categoryItem} />
+                </ListItemButton>
+              </Box>
+            );
+          })}
+        </Box>
+      )}
+    </>
   );
 };
 

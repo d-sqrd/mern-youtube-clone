@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,20 +55,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar(props) {
-  const [sideBarVisible, setSideBarVisible] = useState(false);
+export default function Navbar({
+  setSearchbarString,
+  sidebarVisibility,
+  setSidebarVisibility,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef(null);
+  const navigate = useNavigate();
+  const handleYTIcon = () => {
+    navigate("/");
+  };
 
   const handleSearch = () => {
     console.log(`search bar val = ${inputRef.current.value}`);
-    props.setSearchbarString(inputRef.current.value);
+    setSearchbarString(inputRef.current.value);
   };
   const handleMenu = (event) => {
     // setAnchorEl(event.currentTarget);
     console.log("menu clicked");
     // console.log(sideBarVisible);
-    setSideBarVisible(!sideBarVisible);
+    setSidebarVisibility(!sidebarVisibility);
   };
 
   const handleClose = () => {
@@ -105,6 +113,7 @@ export default function Navbar(props) {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
+              onClick={handleYTIcon}
             >
               <YouTubeIcon />
               <Typography variant="h6">YoutTube</Typography>

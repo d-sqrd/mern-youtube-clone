@@ -9,16 +9,34 @@ import { useState } from "react";
 
 function App() {
   const [searchbarString, setSearchbarString] = useState("");
+  const [sidebarVisibility, setSidebarVisibility] = useState(true);
   return (
     <div className="App">
       <Router>
-        <Navbar setSearchbarString={setSearchbarString} />
+        <Navbar
+          setSearchbarString={setSearchbarString}
+          sidebarVisibility={sidebarVisibility}
+          setSidebarVisibility={setSidebarVisibility}
+        />
         <Routes>
           <Route
             path="/"
-            element={<HomePage searchbarString={searchbarString} />}
+            element={
+              <HomePage
+                searchbarString={searchbarString}
+                sidebarVisibility={sidebarVisibility}
+              />
+            }
           />
-          <Route path="/video/:videoId" element={<VideoStreamPage />} />
+          <Route
+            path="/video/:videoId"
+            element={
+              <VideoStreamPage
+                sidebarVisibility={sidebarVisibility}
+                setSidebarVisibility={setSidebarVisibility}
+              />
+            }
+          />
         </Routes>
       </Router>
     </div>
