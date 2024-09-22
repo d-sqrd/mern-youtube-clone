@@ -1,9 +1,9 @@
 import { Box, Grid2 } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
-import SideBar from "./SideBar";
 import Feed from "./Feed";
 import useWindowSize from "../hooks/useWindowSize";
+import SideBar from "./SideBar";
 
 const HomePage = () => {
   const size = useWindowSize();

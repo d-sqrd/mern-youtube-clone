@@ -5,51 +5,55 @@ import { Box } from "@mui/material";
 import VideoCard from "./VideoCard";
 import Loading from "./Loading";
 
-const SuggestedVideos = ({ parentVideoId }) => {
+const SuggestedVideos = (props) => {
+  const { parentVideoId } = props;
+  // const parentVideoId = "parentVideoId";
   console.log(`ParentVidId = ${parentVideoId}`);
+  // const [relatedVideoId, setRelatedVideoId] = useState("");
   const [suggestedVideos, setSuggestedVideos] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  const fetchSuggestedVideos = async () => {
-    const options = {
-      method: "GET",
-      url: `${process.env.REACT_APP_URL}/search`,
-      params: {
-        relatedToVideoId: parentVideoId,
-        part: "id,snippet",
-        type: "video",
-        maxResults: "50",
-      },
-      headers: {
-        "x-rapidapi-key": process.env.REACT_APP_API_KEY,
-        "x-rapidapi-host": process.env.REACT_APP_HOST,
-      },
-    };
-
-    try {
-      const response = await axios.request(options);
-      setSuggestedVideos(response.data.items);
-      setIsDataLoaded(true);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    // fetchSuggestedVideos();
-    setSuggestedVideos(suggestedVideosLocal);
-    setIsDataLoaded(true);
-  }, []);
+    const fetchSuggestedVideos = async () => {
+      const options = {
+        method: "GET",
+        url: `${process.env.REACT_APP_URL}/search`,
+        params: {
+          relatedToVideoId: parentVideoId,
+
+          part: "id,snippet",
+          type: "video",
+          maxResults: "10",
+        },
+        headers: {
+          "x-rapidapi-key": process.env.REACT_APP_API_KEY,
+          "x-rapidapi-host": process.env.REACT_APP_HOST,
+        },
+      };
+
+      try {
+        const response = await axios.request(options);
+        setSuggestedVideos(response.data.items);
+        setIsDataLoaded(true);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    // setRelatedVideoId(parentVideoId);
+    fetchSuggestedVideos();
+    // setSuggestedVideos(suggestedVideosLocal);
+    // setIsDataLoaded(true);
+  }, [parentVideoId]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "row", maxWidth: "100%" }}>
       <Box>
         {isDataLoaded ? (
-          suggestedVideos.items.map((video, index) => {
+          suggestedVideos.map((videoDetail, index) => {
             return (
-              <Box>
-                <VideoCard videoDetail={video} />
+              <Box key={index}>
+                <VideoCard videoDetail={videoDetail} />
               </Box>
             );
           })

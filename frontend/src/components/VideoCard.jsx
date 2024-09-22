@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 const VideoCard = ({ videoDetail }) => {
   const navigate = useNavigate();
-  // console.log(videoDetail);
+  // console.log(`videoCard - videoDetail: ${JSON.stringify(videoDetail)}`);
   const handleClick = () => {
     navigate(`/video/${videoDetail.id.videoId}`, {
       state: { videoDetail: videoDetail },
@@ -26,18 +26,18 @@ const VideoCard = ({ videoDetail }) => {
       >
         <CardMedia
           component="img"
-          alt={videoDetail.snippet.description}
+          alt={videoDetail?.snippet?.description}
           height="140"
-          image={videoDetail.snippet.thumbnails.medium.url}
+          image={videoDetail?.snippet?.thumbnails?.default?.url}
           videoDetail={videoDetail}
           onClick={handleClick}
           sx={{ objectFit: "fill" }}
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
-            {videoDetail.snippet.title.length > 50
-              ? videoDetail.snippet.title.slice(0, 50) + "..."
-              : videoDetail.snippet.title}
+            {videoDetail?.snippet?.title?.length > 50
+              ? videoDetail?.snippet?.title.slice(0, 50) + "..."
+              : videoDetail?.snippet?.title}
           </Typography>
           {/* <Typography variant="body2" sx={{ color: "text.secondary" }}>
           Lizards are a widespread group of squamate reptiles, with over 6,000

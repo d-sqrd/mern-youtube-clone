@@ -11,7 +11,7 @@ import Menu from "@mui/material/Menu";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Grid2 } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,7 +58,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
   const [sideBarVisible, setSideBarVisible] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [searchBarVal, setSearchBarVal] = useState("");
+  console.log(`SearchBarVal = ${searchBarVal}`);
 
+  const handleOnclick = () => {
+    console.log("onlick");
+  };
   const handleMenu = (event) => {
     // setAnchorEl(event.currentTarget);
     console.log("menu clicked");
@@ -77,20 +82,20 @@ export default function Navbar() {
       }}
     >
       <AppBar position="static">
-        <Grid2
+        <Box
           container
           display="flex"
           direction="row"
-          justifyContent="center"
           alignItems="center"
+          justifyContent="space-between"
+          sx={{ ml: 2, mr: 2 }}
         >
-          <Grid2 size={3} justifyContent="space-between">
+          <Box>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
               onClick={handleMenu}
             >
               <MenuIcon />
@@ -105,19 +110,27 @@ export default function Navbar() {
               <YouTubeIcon />
               <Typography variant="h6">YoutTube</Typography>
             </IconButton>
-          </Grid2>
-          <Grid2 size={6} justifyContent="space-between">
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
+          </Box>
+          <Box sx={{ width: "50%" }}>
+            <Search
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                borderRadius: "50px",
+              }}
+            >
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                value={searchBarVal}
+                onChange={(e) => setSearchBarVal(e.target.value)}
               />
+              <SearchIconWrapper onClick={handleOnclick}>
+                <SearchIcon />
+              </SearchIconWrapper>
             </Search>
-          </Grid2>
-          <Grid2 size={3} justifyContent="space-between">
+          </Box>
+          <Box>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -146,8 +159,8 @@ export default function Navbar() {
               <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Menu>
-          </Grid2>
-        </Grid2>
+          </Box>
+        </Box>
       </AppBar>
     </Box>
   );
