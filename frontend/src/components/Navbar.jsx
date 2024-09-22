@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -11,7 +11,6 @@ import Menu from "@mui/material/Menu";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button, TextField } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -28,15 +27,15 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
+// const SearchIconWrapper = styled("div")(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: "100%",
+//   position: "absolute",
+//   pointerEvents: "none",
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+// }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
@@ -55,14 +54,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const [sideBarVisible, setSideBarVisible] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [searchBarVal, setSearchBarVal] = useState("");
-  console.log(`SearchBarVal = ${searchBarVal}`);
+  const inputRef = useRef(null);
 
-  const handleOnclick = () => {
-    console.log("onlick");
+  const handleSearch = () => {
+    console.log(`search bar val = ${inputRef.current.value}`);
+    props.setSearchbarString(inputRef.current.value);
   };
   const handleMenu = (event) => {
     // setAnchorEl(event.currentTarget);
@@ -122,12 +121,12 @@ export default function Navbar() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
-                value={searchBarVal}
-                onChange={(e) => setSearchBarVal(e.target.value)}
+                ref={inputRef}
+                onChange={(e) => (inputRef.current.value = e.target.value)}
               />
-              <SearchIconWrapper onClick={handleOnclick}>
+              <IconButton onClick={handleSearch}>
                 <SearchIcon />
-              </SearchIconWrapper>
+              </IconButton>
             </Search>
           </Box>
           <Box>

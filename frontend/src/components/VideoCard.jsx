@@ -8,6 +8,10 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 const VideoCard = ({ videoDetail }) => {
+  const thumbnailSrc =
+    videoDetail?.snippet?.thumbnails?.default?.url ||
+    videoDetail?.snippet?.thumbnails?.medium?.url ||
+    videoDetail?.snippet?.thumbnails?.high?.url;
   const navigate = useNavigate();
   // console.log(`videoCard - videoDetail: ${JSON.stringify(videoDetail)}`);
   const handleClick = () => {

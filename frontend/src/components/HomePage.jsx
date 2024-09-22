@@ -1,15 +1,19 @@
 import { Box, Grid2 } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect } from "react";
 import Feed from "./Feed";
 import useWindowSize from "../hooks/useWindowSize";
 import SideBar from "./SideBar";
 
-const HomePage = () => {
+const HomePage = (props) => {
+  const renderCount = useRef(0);
   const size = useWindowSize();
+  console.log(`homepage search bar string = ${props.searchbarString}`);
   useEffect(() => {
+    renderCount.current += 1;
     // fetch different category YT videos to show on initial page load
   }, []);
+  console.log(`Homepage render count = ${renderCount.current}`);
   return (
     // <Box sx={{ height: "100vh", border: 1 }}>
     <Box sx={{ marginTop: 1 }}>
@@ -20,7 +24,7 @@ const HomePage = () => {
           </Grid2>
         )}
         <Grid2 size={{ sm: 9 }}>
-          <Feed />
+          <Feed searchString={props.searchbarString} />
         </Grid2>
       </Grid2>
     </Box>
