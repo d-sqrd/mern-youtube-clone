@@ -20,7 +20,10 @@ function App() {
           setSidebarVisibility={setSidebarVisibility}
           setLoginModalVisibility={setLoginModalVisibility}
         />
-        <LoginModal loginModalVisibility={loginModalVisibility} />
+        <LoginModal
+          loginModalVisibility={loginModalVisibility}
+          setLoginModalVisibility={setLoginModalVisibility}
+        />
         <Routes>
           <Route
             path="/"

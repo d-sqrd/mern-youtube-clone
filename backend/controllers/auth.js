@@ -26,6 +26,9 @@ const register = async (req, res) => {
 };
 const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(
+    `auth-controller-login-route....\nemail = ${email}\npassword=${password}`
+  );
   if (!email || !password) {
     console.log("empty email/password");
     return res.status(400).send("Email and password cannot be empty");
