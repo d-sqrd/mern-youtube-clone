@@ -5,7 +5,7 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const openSidebar = () => {
+  const toggleSidebar = () => {
     // setIsSidebarOpen(true);
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -17,7 +17,7 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         isSidebarOpen,
-        openSidebar,
+        toggleSidebar,
         closeSidebar,
       }}
     >

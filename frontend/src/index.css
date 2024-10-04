@@ -26,6 +26,7 @@ code {
   /* box-shadow: var(--clr-red-dark); */
   transition: all 0.3s linear;
   transform: translate(-100%);
+  /* z-index: 1000; */
 }
 .show-sidebar {
   transform: translate(0);

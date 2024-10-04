@@ -66,7 +66,7 @@ export default function Navbar({
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
-  const { openSidebar } = useContext(AppContext);
+  const { toggleSidebar } = useContext(AppContext);
   const handleYTIcon = () => {
     navigate("/");
   };
@@ -123,8 +123,7 @@ export default function Navbar({
               edge="start"
               color="inherit"
               aria-label="menu"
-              // onClick={() => setSidebarVisibility(!sidebarVisibility)}
-              onClick={openSidebar}
+              onClick={toggleSidebar}
             >
               <MenuIcon />
             </IconButton>

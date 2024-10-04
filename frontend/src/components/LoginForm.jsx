@@ -1,24 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Button, styled, TextField } from "@mui/material";
 import axios from "axios";
 
-// const StyledDiv = styled("div")(({ theme }) => ({
-//   root: {
-//     display: "flex",
-//     flexDirection: "column",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     padding: theme.spacing(2),
-
-//     "& .MuiTextField-root": {
-//       margin: theme.spacing(1),
-//       width: "300px",
-//     },
-//     "& .MuiButtonBase-root": {
-//       margin: theme.spacing(2),
-//     },
-//   },
-// }));
 const StyledDiv = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -84,27 +67,11 @@ const LoginForm = ({ setLoginModalVisibility }) => {
   return (
     <StyledDiv>
       <form onSubmit={handleSubmit}>
-        {/* <TextField
-          label="First Name"
-          variant="filled"
-          required
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <TextField
-          label="Last Name"
-          variant="filled"
-          required
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        /> */}
         <TextField
           label="Email"
           variant="filled"
           type="email"
           required
-          // value={email}
-          // onChange={(e) => setEmail(e.target.value)}
           ref={emailInputRef}
           onChange={(e) => (emailInputRef.current.value = e.target.value)}
         />
@@ -113,8 +80,6 @@ const LoginForm = ({ setLoginModalVisibility }) => {
           variant="filled"
           type="password"
           required
-          // value={password}
-          // onChange={(e) => setPassword(e.target.value)}
           ref={passwordInputRef}
           onChange={(e) => (passwordInputRef.current.value = e.target.value)}
         />

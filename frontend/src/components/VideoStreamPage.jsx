@@ -5,7 +5,7 @@ import { Box, Button, Typography, Grid2, Paper } from "@mui/material";
 import SuggestedVideos from "./SuggestedVideos";
 import SideBar from "./SideBar";
 
-const VideoStreamPage = ({ sidebarVisibility }) => {
+const VideoStreamPage = () => {
   const { videoId } = useParams();
   const url = `https://www.youtube.com/watch?v=${videoId}`;
   const {
@@ -17,7 +17,7 @@ const VideoStreamPage = ({ sidebarVisibility }) => {
   };
   return (
     <>
-      <SideBar sidebarVisibility={sidebarVisibility} />
+      {/* <SideBar /> */}
       <Box sx={{ marginTop: 1, background: "#fff" }}>
         <Grid2 container display="flex" direction="row">
           <Grid2 size={{ md: 9 }}>
