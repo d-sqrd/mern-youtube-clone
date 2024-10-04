@@ -3,9 +3,6 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 
 const LoginModal = ({ loginModalVisibility, setLoginModalVisibility }) => {
-  // const [loginModalOpen, setLoginModalOpen] = useState(false);
-  // console.log(`LoginModal visibility = ${loginModalVisibility}`);
-
   const handleDiaglogClose = () => {
     setLoginModalVisibility(false);
   };

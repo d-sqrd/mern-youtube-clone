@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -13,6 +13,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { AppContext } from "../context/AppContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,27 +59,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Navbar({
   setSearchbarString,
-  sidebarVisibility,
-  setSidebarVisibility,
+  // sidebarVisibility,
+  // setSidebarVisibility,
   setLoginModalVisibility,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
-
+  const { openSidebar } = useContext(AppContext);
   const handleYTIcon = () => {
     navigate("/");
   };
   const handleMenu = (event) => {
-    // setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
     console.log("menu clicked");
-    setSidebarVisibility(!sidebarVisibility);
+    // setSidebarVisibility(!sidebarVisibility);
   };
 
   const handleSearch = () => {
     console.log(`search bar val = ${inputRef.current.value}`);
     setSearchbarString(inputRef.current.value);
-    setSidebarVisibility(true);
+    // setSidebarVisibility(true);
     navigate("/");
   };
 
@@ -90,10 +91,21 @@ export default function Navbar({
     setLoginModalVisibility(true);
   };
 
+  const handleLogout = () => {
+    localStorage.clear("loginAuthToken");
+    localStorage.clear("loggedInUserEmail");
+    // setSidebarVisibility(true);
+    navigate("/");
+  };
+
   return (
     <Box
       sx={{
         flexGrow: 1,
+        // position: "sticky",
+        // top: "1%",
+        // top: 0,
+        // bottom: "1%",
       }}
     >
       <AppBar position="static">
@@ -111,7 +123,8 @@ export default function Navbar({
               edge="start"
               color="inherit"
               aria-label="menu"
-              onClick={handleMenu}
+              // onClick={() => setSidebarVisibility(!sidebarVisibility)}
+              onClick={openSidebar}
             >
               <MenuIcon />
             </IconButton>
@@ -124,7 +137,7 @@ export default function Navbar({
               onClick={handleYTIcon}
             >
               <YouTubeIcon />
-              <Typography variant="h6">YoutTube</Typography>
+              <Typography variant="h6">YouTube</Typography>
             </IconButton>
           </Box>
           <Box sx={{ width: "50%" }}>
@@ -146,42 +159,52 @@ export default function Navbar({
               </IconButton>
             </Search>
           </Box>
-          <Box>
-            <Button variant="contained" onClick={handleLoginClick}>
-              Login
-            </Button>
-            <Button variant="contained">Signup</Button>
-          </Box>
-          <Box>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              // onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Menu>
-          </Box>
+          {
+            // render below only if guest user
+            !localStorage.getItem("loginAuthToken") && (
+              <Box>
+                <Button variant="contained" onClick={handleLoginClick}>
+                  Login
+                </Button>
+                <Button variant="contained">Signup</Button>
+              </Box>
+            )
+          }
+          {
+            // render below Box only if logged in user
+            localStorage.getItem("loginAuthToken") && (
+              <Box>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+              </Box>
+            )
+          }
         </Box>
       </AppBar>
     </Box>

@@ -12,3 +12,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15%;
+  height: 100%;
+  background: #fff;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 1rem;
+  /* box-shadow: var(--clr-red-dark); */
+  transition: all 0.3s linear;
+  transform: translate(-100%);
+}
+.show-sidebar {
+  transform: translate(0);
+}

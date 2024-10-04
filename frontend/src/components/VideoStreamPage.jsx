@@ -21,7 +21,14 @@ const VideoStreamPage = ({ sidebarVisibility }) => {
       <Box sx={{ marginTop: 1, background: "#fff" }}>
         <Grid2 container display="flex" direction="row">
           <Grid2 size={{ md: 9 }}>
-            <Box sx={{ margin: 1 }}>
+            <Box
+              sx={{
+                margin: 1,
+                position: "sticky",
+                top: "8.5%",
+                // top: 0,
+              }}
+            >
               <Box
                 sx={{
                   borderRadius: "10px",

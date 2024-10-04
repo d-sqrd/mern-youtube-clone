@@ -1,7 +1,8 @@
 import { Box, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
+import { AppContext } from "../context/AppContext";
 
 const SideBar = ({ sidebarVisibility }) => {
   console.log(`Sidebar sidebarVisibility = ${sidebarVisibility}`);
@@ -43,9 +44,36 @@ const SideBar = ({ sidebarVisibility }) => {
     "Sports",
     "News",
   ];
+
+  const { isSidebarOpen, closeSidebar } = useContext(AppContext);
+  //   return (
+  //     <>
+  //       {sidebarVisibility && (
+  //         <Box container display="flex" flexDirection="column">
+  //           {categories.map((categoryItem, index) => {
+  //             return (
+  //               <Box key={index} sx={{ marginLeft: "12px" }}>
+  //                 <ListItemButton onClick={() => handleOnClick(categoryItem)}>
+  //                   <ListItemIcon>
+  //                     {/* add utility function to fetch the correct icon for the category */}
+  //                     <ImageIcon />
+  //                   </ListItemIcon>
+  //                   <ListItemText primary={categoryItem} />
+  //                 </ListItemButton>
+  //               </Box>
+  //             );
+  //           })}
+  //         </Box>
+  //       )}
+  //     </>
+  //   );
+  // };
+  console.log(`sidebar isSidebarOpen = ${isSidebarOpen}`);
   return (
     <>
-      {sidebarVisibility && (
+      <aside
+        className={`${isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}`}
+      >
         <Box container display="flex" flexDirection="column">
           {categories.map((categoryItem, index) => {
             return (
@@ -61,7 +89,7 @@ const SideBar = ({ sidebarVisibility }) => {
             );
           })}
         </Box>
-      )}
+      </aside>
     </>
   );
 };

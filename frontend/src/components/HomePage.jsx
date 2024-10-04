@@ -17,12 +17,13 @@ const HomePage = ({ searchbarString, sidebarVisibility }) => {
   return (
     <Box sx={{ marginTop: 1 }}>
       <Grid2 container display="flex" direction="row">
-        {size.width >= 600 && (
+        {/* {size.width >= 600 && (
           <Grid2 size={3}>
             <SideBar sidebarVisibility={sidebarVisibility} />
           </Grid2>
-        )}
-        <Grid2 size={{ sm: 9 }}>
+        )} */}
+        {/* <Grid2 size={{ sm: 9 }}> */}
+        <Grid2>
           <Feed searchString={searchbarString} />
         </Grid2>
       </Grid2>

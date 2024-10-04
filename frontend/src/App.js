@@ -5,6 +5,8 @@ import VideoStreamPage from "./components/VideoStreamPage";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
 import LoginModal from "./components/LoginModal";
+import { Box } from "@mui/material";
+import SideBar from "./components/SideBar";
 
 function App() {
   const [searchbarString, setSearchbarString] = useState("");
@@ -13,32 +15,46 @@ function App() {
   // console.log(`App.js searchbarString = ${searchbarString}`);
   return (
     <div className="App">
+      {/* <SideBar sidebarVisibility={sidebarVisibility} /> */}
+      <SideBar />
       <Router>
-        <Navbar
-          setSearchbarString={setSearchbarString}
-          sidebarVisibility={sidebarVisibility}
-          setSidebarVisibility={setSidebarVisibility}
-          setLoginModalVisibility={setLoginModalVisibility}
-        />
-        <LoginModal
-          loginModalVisibility={loginModalVisibility}
-          setLoginModalVisibility={setLoginModalVisibility}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                searchbarString={searchbarString}
-                sidebarVisibility={sidebarVisibility}
-              />
-            }
+        <Box sx={{ position: "sticky", top: 0, zIndex: "100" }}>
+          {/* <Navbar
+            setSearchbarString={setSearchbarString}
+            sidebarVisibility={sidebarVisibility}
+            setSidebarVisibility={setSidebarVisibility}
+            setLoginModalVisibility={setLoginModalVisibility}
+          /> */}
+          <Navbar
+            setSearchbarString={setSearchbarString}
+            setLoginModalVisibility={setLoginModalVisibility}
           />
-          <Route
-            path="/video/:videoId"
-            element={<VideoStreamPage sidebarVisibility={sidebarVisibility} />}
+          <LoginModal
+            loginModalVisibility={loginModalVisibility}
+            setLoginModalVisibility={setLoginModalVisibility}
           />
-        </Routes>
+        </Box>
+        <Box>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                // <HomePage
+                //   searchbarString={searchbarString}
+                //   sidebarVisibility={sidebarVisibility}
+                // />
+                <HomePage searchbarString={searchbarString} />
+              }
+            />
+            <Route
+              path="/video/:videoId"
+              element={
+                // <VideoStreamPage sidebarVisibility={sidebarVisibility} />
+                <VideoStreamPage />
+              }
+            />
+          </Routes>
+        </Box>
       </Router>
     </div>
   );
