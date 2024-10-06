@@ -15,10 +15,10 @@ function App() {
   // console.log(`App.js searchbarString = ${searchbarString}`);
   return (
     <div className="App">
-      <SideBar />
       {/* <SideBar sidebarVisibility={sidebarVisibility} /> */}
       <Router>
         <Box sx={{ position: "sticky", top: 0, zIndex: "100" }}>
+          {/* <SideBar /> */}
           {/* <Navbar
             setSearchbarString={setSearchbarString}
             sidebarVisibility={sidebarVisibility}

@@ -6,6 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #343633; */
+  background-color: #fff;
 }
 
 code {
@@ -16,16 +18,20 @@ code {
 .sidebar {
   position: fixed;
   top: 0;
+  top: 75px;
   left: 0;
-  width: 15%;
+  /* width: 15%; */
   height: 100%;
   background: #fff;
+  color: #000;
   display: grid;
   grid-template-rows: auto 1fr auto;
   row-gap: 1rem;
   /* box-shadow: var(--clr-red-dark); */
   transition: all 0.3s linear;
   transform: translate(-100%);
+  /* border: 5px solid red; */
+  /* margin-top: 100px; */
   /* z-index: 1000; */
 }
 .show-sidebar {

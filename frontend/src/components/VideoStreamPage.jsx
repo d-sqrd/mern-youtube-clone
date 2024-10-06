@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { Box, Button, Typography, Grid2, Paper } from "@mui/material";
 import SuggestedVideos from "./SuggestedVideos";
 import SideBar from "./SideBar";
+import { AppContext } from "../context/AppContext";
 
 const VideoStreamPage = () => {
   const { videoId } = useParams();
@@ -11,14 +12,14 @@ const VideoStreamPage = () => {
   const {
     state: { videoDetail },
   } = useLocation();
-  console.log(`VideoDetail = ${JSON.stringify(videoDetail)}`);
+  // console.log(`VideoDetail = ${JSON.stringify(videoDetail)}`);
   const handleOnProgress = (event) => {
     console.log(`handleOnProgress = ${JSON.stringify(event)}`);
   };
   return (
     <>
       {/* <SideBar /> */}
-      <Box sx={{ marginTop: 1, background: "#fff" }}>
+      <Box sx={{ pt: 1, background: "#fff" }}>
         <Grid2 container display="flex" direction="row">
           <Grid2 size={{ md: 9 }}>
             <Box

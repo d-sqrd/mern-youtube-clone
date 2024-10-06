@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 
 const VideoCard = ({ videoDetail }) => {
   const thumbnailSrc =
@@ -39,20 +39,30 @@ const VideoCard = ({ videoDetail }) => {
           sx={{ objectFit: "fill" }}
         />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
+          {/* <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            sx={{ fontSize: "medium", fontWeight: "600" }}
+          >
             {videoDetail?.snippet?.title?.length > 50
               ? videoDetail?.snippet?.title.slice(0, 50) + "..."
               : videoDetail?.snippet?.title}
-          </Typography>
-          {/* <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography> */}
+          </Typography> */}
+
+          <Link
+            component="button"
+            gutterBottom
+            variant="h6"
+            underline="none"
+            sx={{ fontSize: "medium", fontWeight: "600" }}
+            onClick={handleClick}
+          >
+            {videoDetail?.snippet?.title?.length > 50
+              ? videoDetail?.snippet?.title.slice(0, 50) + "..."
+              : videoDetail?.snippet?.title}
+          </Link>
         </CardContent>
-        {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
       </Card>
     </Box>
   );

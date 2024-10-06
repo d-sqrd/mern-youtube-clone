@@ -3,6 +3,10 @@ import ImageIcon from "@mui/icons-material/Image";
 import React, { useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 const SideBar = ({ sidebarVisibility }) => {
   console.log(`Sidebar sidebarVisibility = ${sidebarVisibility}`);
