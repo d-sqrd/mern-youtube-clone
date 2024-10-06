@@ -1,9 +1,7 @@
 import React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { Box, Link } from "@mui/material";
@@ -27,6 +25,7 @@ const VideoCard = ({ videoDetail }) => {
         sx={{
           height: 250,
           minWidth: "md",
+          borderRadius: "10px",
         }}
       >
         <CardMedia
@@ -39,29 +38,38 @@ const VideoCard = ({ videoDetail }) => {
           sx={{ objectFit: "fill" }}
         />
         <CardContent>
-          {/* <Typography
-            gutterBottom
-            variant="h6"
-            component="div"
-            sx={{ fontSize: "medium", fontWeight: "600" }}
-          >
-            {videoDetail?.snippet?.title?.length > 50
-              ? videoDetail?.snippet?.title.slice(0, 50) + "..."
-              : videoDetail?.snippet?.title}
-          </Typography> */}
-
           <Link
             component="button"
             gutterBottom
-            variant="h6"
+            variant="h5"
             underline="none"
-            sx={{ fontSize: "medium", fontWeight: "600" }}
             onClick={handleClick}
+            align="left"
+            color="textPrimary"
+            sx={{ fontSize: "medium", fontWeight: "600" }}
           >
             {videoDetail?.snippet?.title?.length > 50
               ? videoDetail?.snippet?.title.slice(0, 50) + "..."
               : videoDetail?.snippet?.title}
           </Link>
+          <Link
+            component="button"
+            gutterBottom
+            variant="h5"
+            underline="none"
+            onClick={handleClick}
+            align="left"
+            color="textSecondary"
+            sx={{ fontSize: "small", fontWeight: "600" }}
+          >
+            {videoDetail?.snippet?.channelTitle}
+          </Link>
+          <Typography
+            variant="h6"
+            sx={{ fontSize: "small", fontWeight: "400", pt: 1 }}
+          >
+            {`${Math.floor(Math.random() * 1000000)} views`}
+          </Typography>
         </CardContent>
       </Card>
     </Box>

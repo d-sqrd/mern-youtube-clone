@@ -81,7 +81,14 @@ const SideBar = ({ sidebarVisibility }) => {
         <Box container display="flex" flexDirection="column">
           {categories.map((categoryItem, index) => {
             return (
-              <Box key={index} sx={{ marginLeft: "12px" }}>
+              <Box
+                key={index}
+                sx={{
+                  marginLeft: 2,
+                  // border: "1px solid red",
+                  borderRadius: "10px",
+                }}
+              >
                 <ListItemButton onClick={() => handleOnClick(categoryItem)}>
                   <ListItemIcon>
                     {/* add utility function to fetch the correct icon for the category */}

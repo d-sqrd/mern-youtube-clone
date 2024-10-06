@@ -169,9 +169,9 @@ export default function Navbar({
               ref={inputRef}
               onChange={(e) => (inputRef.current.value = e.target.value)}
             />
-            <IconButton onClick={handleSearch}>
+            <Button variant="primary" onClick={handleSearch}>
               <SearchIcon />
-            </IconButton>
+            </Button>
           </Search>
         </Box>
         {/* Login/Signup/Account Menu Boxes */}
@@ -182,7 +182,11 @@ export default function Navbar({
               <Button
                 variant="contained"
                 onClick={handleLoginClick}
-                sx={{ borderRadius: "100px" }}
+                sx={{
+                  borderRadius: "100px",
+                  backgroundColor: "#000",
+                  color: "#FFFFFF",
+                }}
               >
                 Login
               </Button>
@@ -224,7 +228,8 @@ export default function Navbar({
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Watch History</MenuItem>
+                <MenuItem onClick={handleClose}>Liked Videos</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Box>
