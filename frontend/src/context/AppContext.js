@@ -4,13 +4,14 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
 
   const toggleSidebar = () => {
-    // setIsSidebarOpen(true);
     setIsSidebarOpen(!isSidebarOpen);
   };
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
+
+  const toggleLoginModal = () => {
+    setIsLoginModalVisible(!isLoginModalVisible);
   };
 
   return (
@@ -18,7 +19,8 @@ const AppProvider = ({ children }) => {
       value={{
         isSidebarOpen,
         toggleSidebar,
-        closeSidebar,
+        isLoginModalVisible,
+        toggleLoginModal,
       }}
     >
       {children}

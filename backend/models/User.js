@@ -28,12 +28,20 @@ const UserSchema = new mongoose.Schema({
     {
       date: {
         type: Date,
-        required: [true, "Please send the date when the video was streamed"],
       },
       videoIdList: [String],
     },
   ],
-  subscribedChannelIds: [String],
+  subscribedChannels: [
+    {
+      channelName: {
+        type: String,
+      },
+      channelId: {
+        type: String,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", UserSchema);

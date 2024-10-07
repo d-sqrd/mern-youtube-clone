@@ -60,38 +60,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar({
-  setSearchbarString,
-  // sidebarVisibility,
-  // setSidebarVisibility,
-  setLoginModalVisibility,
-}) {
+export default function Navbar({ setSearchbarString }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
-  const { toggleSidebar } = useContext(AppContext);
+  const { toggleSidebar, toggleLoginModal } = useContext(AppContext);
   const handleYTIcon = () => {
     navigate("/");
   };
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
     console.log("menu clicked");
-    // setSidebarVisibility(!sidebarVisibility);
   };
 
   const handleSearch = () => {
     console.log(`search bar val = ${inputRef.current.value}`);
     setSearchbarString(inputRef.current.value);
-    // setSidebarVisibility(true);
     navigate("/");
   };
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLoginClick = () => {
-    setLoginModalVisibility(true);
   };
 
   const handleSignup = () => {
@@ -101,7 +90,6 @@ export default function Navbar({
   const handleLogout = () => {
     localStorage.clear("loginAuthToken");
     localStorage.clear("loggedInUserEmail");
-    // setSidebarVisibility(true);
     navigate("/");
   };
 
@@ -181,7 +169,7 @@ export default function Navbar({
             <Box spacing={2}>
               <Button
                 variant="contained"
-                onClick={handleLoginClick}
+                onClick={toggleLoginModal}
                 sx={{
                   borderRadius: "100px",
                   backgroundColor: "#000",
@@ -230,6 +218,7 @@ export default function Navbar({
               >
                 <MenuItem onClick={handleClose}>Watch History</MenuItem>
                 <MenuItem onClick={handleClose}>Liked Videos</MenuItem>
+                <MenuItem onClick={handleClose}>My Subscriptions</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Box>

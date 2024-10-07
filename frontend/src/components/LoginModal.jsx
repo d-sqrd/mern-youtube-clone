@@ -1,15 +1,14 @@
 import { Dialog } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import LoginForm from "./LoginForm";
+import { AppContext } from "../context/AppContext";
 
-const LoginModal = ({ loginModalVisibility, setLoginModalVisibility }) => {
-  const handleDiaglogClose = () => {
-    setLoginModalVisibility(false);
-  };
+const LoginModal = () => {
+  const { toggleLoginModal, isLoginModalVisible } = useContext(AppContext);
   return (
     <div>
-      <Dialog open={loginModalVisibility} onClose={handleDiaglogClose}>
-        <LoginForm setLoginModalVisibility={setLoginModalVisibility} />
+      <Dialog open={isLoginModalVisible} onClose={toggleLoginModal}>
+        <LoginForm />
       </Dialog>
     </div>
   );

@@ -37,7 +37,7 @@ const VideoCard = ({ videoDetail }) => {
           onClick={handleClick}
           sx={{ objectFit: "fill" }}
         />
-        <CardContent>
+        <CardContent sx={{ display: "flex", flexDirection: "column" }}>
           <Link
             component="button"
             gutterBottom

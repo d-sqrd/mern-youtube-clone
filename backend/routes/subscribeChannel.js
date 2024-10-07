@@ -1,7 +1,7 @@
 const express = require("express");
-const subscribeChannel = require("../controllers/subscribeChannel");
 const router = express.Router();
+const subscribeChannel = require("../controllers/subscribeChannel");
 
-router.post("/:channelId", subscribeChannel);
+router.post("/", subscribeChannel);
 
 module.exports = router;

@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { Button, styled, TextField } from "@mui/material";
 import axios from "axios";
+import { AppContext } from "../context/AppContext";
 
 const StyledDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -18,24 +19,13 @@ const StyledDiv = styled("div")(({ theme }) => ({
   },
 }));
 
-const LoginForm = ({ setLoginModalVisibility }) => {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+const LoginForm = () => {
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
-
-  const handleFormClose = () => {
-    setLoginModalVisibility(false);
-  };
+  const { isLoginModalVisible, toggleLoginModal } = useContext(AppContext);
 
   const handleSubmit = async (e) => {
-    // add logic to call login API
     e.preventDefault();
-    // console.log(firstName, lastName, email, password);
-    // console.log(`login-form email input = ${emailInputRef.current.value}`);
-    // console.log(`login-form password input = ${passwordInputRef.current.value}`);
     try {
       const options = {
         method: "POST",
@@ -59,40 +49,47 @@ const LoginForm = ({ setLoginModalVisibility }) => {
       //   )}`
       // );
     } catch (error) {
+      // add UI to handle error
       console.log(`login-form error = ${error}`);
     }
-    handleFormClose();
+    toggleLoginModal();
   };
 
   return (
-    <StyledDiv>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Email"
-          variant="filled"
-          type="email"
-          required
-          ref={emailInputRef}
-          onChange={(e) => (emailInputRef.current.value = e.target.value)}
-        />
-        <TextField
-          label="Password"
-          variant="filled"
-          type="password"
-          required
-          ref={passwordInputRef}
-          onChange={(e) => (passwordInputRef.current.value = e.target.value)}
-        />
-        <div>
-          <Button variant="contained" onClick={handleFormClose}>
-            Cancel
-          </Button>
-          <Button type="submit" variant="contained" color="primary">
-            Login
-          </Button>
-        </div>
-      </form>
-    </StyledDiv>
+    <>
+      {isLoginModalVisible && (
+        <StyledDiv>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Email"
+              variant="filled"
+              type="email"
+              required
+              ref={emailInputRef}
+              onChange={(e) => (emailInputRef.current.value = e.target.value)}
+            />
+            <TextField
+              label="Password"
+              variant="filled"
+              type="password"
+              required
+              ref={passwordInputRef}
+              onChange={(e) =>
+                (passwordInputRef.current.value = e.target.value)
+              }
+            />
+            <div>
+              <Button variant="contained" onClick={toggleLoginModal}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Login
+              </Button>
+            </div>
+          </form>
+        </StyledDiv>
+      )}
+    </>
   );
 };
 

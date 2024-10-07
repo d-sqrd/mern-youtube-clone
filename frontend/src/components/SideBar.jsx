@@ -1,12 +1,32 @@
 import { Box, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
 import React, { useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import TheatersIcon from "@mui/icons-material/Theaters";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import SchoolIcon from "@mui/icons-material/School";
+import SportsTennisIcon from "@mui/icons-material/SportsTennis";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
+
+const getSidebarIcon = (category) => {
+  switch (category) {
+    case "Music":
+      return <MusicNoteIcon />;
+    case "Movies":
+      return <TheatersIcon />;
+    case "Gaming":
+      return <SportsEsportsIcon />;
+    case "Education":
+      return <SchoolIcon />;
+    case "Sports":
+      return <SportsTennisIcon />;
+    case "News":
+      return <NewspaperIcon />;
+    default:
+      break;
+  }
+};
 
 const SideBar = ({ sidebarVisibility }) => {
   console.log(`Sidebar sidebarVisibility = ${sidebarVisibility}`);
@@ -49,7 +69,7 @@ const SideBar = ({ sidebarVisibility }) => {
     "News",
   ];
 
-  const { isSidebarOpen, closeSidebar } = useContext(AppContext);
+  const { isSidebarOpen } = useContext(AppContext);
   //   return (
   //     <>
   //       {sidebarVisibility && (
@@ -90,10 +110,7 @@ const SideBar = ({ sidebarVisibility }) => {
                 }}
               >
                 <ListItemButton onClick={() => handleOnClick(categoryItem)}>
-                  <ListItemIcon>
-                    {/* add utility function to fetch the correct icon for the category */}
-                    <ImageIcon />
-                  </ListItemIcon>
+                  <ListItemIcon>{getSidebarIcon(categoryItem)}</ListItemIcon>
                   <ListItemText primary={categoryItem} />
                 </ListItemButton>
               </Box>
