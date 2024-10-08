@@ -1,4 +1,4 @@
-const watchHistory = require("../controllers/watchHistory");
+const watchHistory = require("../controllers/getWatchHistory");
 const express = require("express");
 const router = express.Router();
 

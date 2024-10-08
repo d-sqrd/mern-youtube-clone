@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
-import { Box, Button, Typography, Grid2, Paper } from "@mui/material";
+import { Box, Button, Typography, Grid2 } from "@mui/material";
 import SuggestedVideos from "./SuggestedVideos";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
@@ -9,17 +9,50 @@ import { AppContext } from "../context/AppContext";
 import axios from "axios";
 
 const VideoStreamPage = () => {
-  const { videoId } = useParams();
-  const url = `https://www.youtube.com/watch?v=${videoId}`;
+  // const { videoId } = useParams();
+  // const url = `https://www.youtube.com/watch?v=${videoId}`;
   const {
     state: { videoDetail },
   } = useLocation();
+  const url = `https://www.youtube.com/watch?v=${videoDetail.id.videoId}`;
   // console.log(`VideoDetail = ${JSON.stringify(videoDetail)}`);
   const { toggleLoginModal } = useContext(AppContext);
   const [isChannelAlreadySubscribed, setIsChannelAlreadySubscribed] =
     useState(false);
   const handleOnProgress = (event) => {
     console.log(`handleOnProgress = ${JSON.stringify(event)}`);
+  };
+  const handleOnStart = async () => {
+    if (
+      localStorage.getItem("loginAuthToken") &&
+      localStorage.getItem("loggedInUserEmail")
+    ) {
+      try {
+        const options = {
+          method: "POST",
+          url: "http://localhost:5000/api/v1/addToWatchHistory",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
+          },
+          data: {
+            email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+            watchHistory: {
+              date: new Date(),
+              videoId: videoDetail.id.videoId,
+            },
+          },
+        };
+        const response = await axios.request(options);
+        if (response.status === 200) {
+          console.log(`video-stream-page...subcribe channel successful`);
+          setIsChannelAlreadySubscribed(true);
+        }
+      } catch (error) {
+        console.log(
+          `video-stream-page...add to watch history error = ${error}`
+        );
+      }
+    }
   };
   const handleSubscribe = async () => {
     if (
@@ -138,12 +171,14 @@ const VideoStreamPage = () => {
               sx={{
                 borderRadius: "10px",
                 overflow: "hidden",
+                border: "1px solid red",
               }}
             >
               <ReactPlayer
                 url={url}
                 controls={true}
                 // onProgress={handleOnProgress}
+                onStart={handleOnStart}
                 width="100%"
               />
             </Box>
@@ -231,7 +266,7 @@ const VideoStreamPage = () => {
         <Grid2 size={{ md: 3 }}>
           {/* Parent container Box for the suggested videos section */}
           <Box>
-            <SuggestedVideos parentVideoId={videoId} />
+            <SuggestedVideos parentVideoId={videoDetail.id.videoId} />
           </Box>
         </Grid2>
       </Grid2>

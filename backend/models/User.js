@@ -29,7 +29,9 @@ const UserSchema = new mongoose.Schema({
       date: {
         type: Date,
       },
-      videoIdList: [String],
+      videoId: {
+        type: String,
+      },
     },
   ],
   subscribedChannels: [
