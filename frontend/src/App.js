@@ -6,10 +6,13 @@ import Navbar from "./components/Navbar";
 import { useState } from "react";
 import LoginModal from "./components/LoginModal";
 import { Box } from "@mui/material";
+import useWindowSize from "./hooks/useWindowSize";
 
 function App() {
   const [searchbarString, setSearchbarString] = useState("");
   // console.log(`App.js searchbarString = ${searchbarString}`);
+  const window = useWindowSize();
+  console.log(`App.js useWindowSize = ${JSON.stringify(window)}`);
   return (
     <div className="App">
       <Router>

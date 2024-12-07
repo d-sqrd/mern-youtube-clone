@@ -45,22 +45,25 @@ const SuggestedVideos = (props) => {
     setSuggestedVideos(suggestedVideosLocal.items);
     setIsDataLoaded(true);
   }, [parentVideoId]);
-
   return (
-    <Box sx={{ display: "flex", flexDirection: "row", maxWidth: "100%" }}>
-      <Box>
-        {isDataLoaded ? (
-          suggestedVideos.map((videoDetail, index) => {
-            return (
-              <Box key={index}>
-                <VideoCard videoDetail={videoDetail} />
-              </Box>
-            );
-          })
-        ) : (
-          <Loading />
-        )}
-      </Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: "100%",
+      }}
+    >
+      {isDataLoaded ? (
+        suggestedVideos.map((videoDetail, index) => {
+          return (
+            <Box key={index}>
+              <VideoCard videoDetail={videoDetail} />
+            </Box>
+          );
+        })
+      ) : (
+        <Loading />
+      )}
     </Box>
   );
 };

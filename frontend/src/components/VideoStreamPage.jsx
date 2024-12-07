@@ -7,6 +7,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
+import useWindowSize from "../hooks/useWindowSize";
 
 const VideoStreamPage = () => {
   // const { videoId } = useParams();
@@ -150,11 +151,13 @@ const VideoStreamPage = () => {
     checkChannelSubscriptionStatus();
   }, [videoDetail.snippet.channelId]);
 
+  const window = useWindowSize();
+  console.log(`vid-stream-page - window = ${JSON.stringify(window)}`);
   return (
     <Box sx={{ pt: 1, background: "#fff" }}>
       <Grid2 container display="flex" direction="row">
         {/* Parent container for the left side of the page */}
-        <Grid2 size={{ md: 9 }}>
+        <Grid2 size={{ xs: 12, md: 9 }}>
           {/* Parent container Box for the left side of the page - includes the video player, video title, channel title, like, dislike, subscribe and unsubscribe buttons */}
           <Box
             sx={{
@@ -162,6 +165,11 @@ const VideoStreamPage = () => {
               position: "sticky",
               top: "8.5%",
               ml: 1,
+              mr: 1,
+              // border: "3px solid magenta",
+              display: "flex",
+              flexDirection: "column",
+              ...(window.width < 500 && { mb: 1 }),
               // top: 0,
               // pt: 1,
             }}
@@ -171,7 +179,6 @@ const VideoStreamPage = () => {
               sx={{
                 borderRadius: "10px",
                 overflow: "hidden",
-                border: "1px solid red",
               }}
             >
               <ReactPlayer
@@ -179,7 +186,7 @@ const VideoStreamPage = () => {
                 controls={true}
                 // onProgress={handleOnProgress}
                 onStart={handleOnStart}
-                width="100%"
+                width={window.width < 500 ? `${window.width}px` : "100%"}
               />
             </Box>
             {/* Container Box for video title and channel title, like, dislike, subscribe and unsubscribe buttons */}
@@ -193,9 +200,14 @@ const VideoStreamPage = () => {
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+                  ...(window.width < 500 && {
+                    flexDirection: "column",
+                  }),
+                  ...(window.width >= 500 && {
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }),
                 }}
               >
                 <Box>
@@ -203,67 +215,78 @@ const VideoStreamPage = () => {
                     {videoDetail.snippet.channelTitle}
                   </Typography>
                 </Box>
-                <Box>
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      color: "#000",
-                      border: "1px solid black",
-                      borderTopLeftRadius: "100px",
-                      borderBottomLeftRadius: "100px",
-                      borderRight: 0,
-                    }}
-                  >
-                    <ThumbUpIcon sx={{ mr: 1 }} />
-                    <Typography sx={{ fontSize: "small" }}>
-                      {`${Math.floor(Math.random() * 1000)}k`}
-                    </Typography>
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      color: "#000",
-                      border: "1px solid black",
-                      borderTopRightRadius: "100px",
-                      borderBottomRightRadius: "100px",
-                      mr: 2,
-                    }}
-                  >
-                    <ThumbDownIcon />
-                  </Button>
-                  {!isChannelAlreadySubscribed && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    ...(window.width < 500 && {
+                      justifyContent: "space-between",
+                    }),
+                  }}
+                >
+                  <Box>
                     <Button
-                      variant="contained"
-                      onClick={handleSubscribe}
+                      variant="outlined"
                       sx={{
-                        backgroundColor: "#000",
-                        color: "#FFFFFF",
-                        borderRadius: "100px",
+                        color: "#000",
+                        border: "1px solid black",
+                        borderTopLeftRadius: "100px",
+                        borderBottomLeftRadius: "100px",
+                        borderRight: 0,
                       }}
                     >
-                      Subscribe
+                      <ThumbUpIcon sx={{ mr: 1 }} />
+                      <Typography sx={{ fontSize: "small" }}>
+                        {`${Math.floor(Math.random() * 1000)}k`}
+                      </Typography>
                     </Button>
-                  )}
-                  {isChannelAlreadySubscribed && (
                     <Button
-                      variant="contained"
-                      onClick={handleUnsubscribe}
+                      variant="outlined"
                       sx={{
-                        backgroundColor: "#000",
-                        color: "#FFFFFF",
-                        borderRadius: "100px",
+                        color: "#000",
+                        border: "1px solid black",
+                        borderTopRightRadius: "100px",
+                        borderBottomRightRadius: "100px",
+                        mr: 2,
                       }}
                     >
-                      Unsubscribe
+                      <ThumbDownIcon />
                     </Button>
-                  )}
+                  </Box>
+                  <Box>
+                    {!isChannelAlreadySubscribed && (
+                      <Button
+                        variant="contained"
+                        onClick={handleSubscribe}
+                        sx={{
+                          backgroundColor: "#000",
+                          color: "#FFFFFF",
+                          borderRadius: "100px",
+                        }}
+                      >
+                        Subscribe
+                      </Button>
+                    )}
+                    {isChannelAlreadySubscribed && (
+                      <Button
+                        variant="contained"
+                        onClick={handleUnsubscribe}
+                        sx={{
+                          backgroundColor: "#000",
+                          color: "#FFFFFF",
+                          borderRadius: "100px",
+                        }}
+                      >
+                        Unsubscribe
+                      </Button>
+                    )}
+                  </Box>
                 </Box>
               </Box>
             </Box>
           </Box>
         </Grid2>
         {/* Parent container for the suggested videos section of the page */}
-        <Grid2 size={{ md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           {/* Parent container Box for the suggested videos section */}
           <Box>
             <SuggestedVideos parentVideoId={videoDetail.id.videoId} />

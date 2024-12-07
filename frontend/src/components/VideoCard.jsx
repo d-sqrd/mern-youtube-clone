@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { Box, Link } from "@mui/material";
+import useWindowSize from "../hooks/useWindowSize";
 
 const VideoCard = ({ videoDetail }) => {
   const thumbnailSrc =
@@ -19,12 +20,14 @@ const VideoCard = ({ videoDetail }) => {
     });
     console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
   };
+  const window = useWindowSize();
   return (
-    <Box sx={{ margin: 1 }}>
+    <Box sx={{ margin: 1, ...(window.width >= 500 && { mt: 0 }) }}>
       <Card
         sx={{
           height: 250,
-          minWidth: "md",
+          // minWidth: "md",
+          // minWidth: "100vw",
           borderRadius: "10px",
         }}
       >

@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { AppContext } from "../context/AppContext";
 import SideBar from "./SideBar";
+import useWindowSize from "../hooks/useWindowSize";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -93,6 +94,8 @@ export default function Navbar({ setSearchbarString }) {
     navigate("/");
   };
 
+  const window = useWindowSize();
+
   return (
     <Box
       sx={{
@@ -125,17 +128,19 @@ export default function Navbar({ setSearchbarString }) {
             >
               <MenuIcon />
             </IconButton>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={handleYTIcon}
-            >
-              <YouTubeIcon />
-              <Typography variant="h6">YouTube</Typography>
-            </IconButton>
+            {window.width > 500 && (
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={handleYTIcon}
+              >
+                <YouTubeIcon />
+                <Typography variant="h6">YouTube</Typography>
+              </IconButton>
+            )}
           </Box>
           {/* Sidebar Box */}
           <Box sx={{ mt: 2 }}>
