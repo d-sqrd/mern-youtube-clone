@@ -16,7 +16,9 @@ const VideoStreamPage = () => {
     state: { videoDetail },
   } = useLocation();
   const url = `https://www.youtube.com/watch?v=${videoDetail.id.videoId}`;
-  // console.log(`VideoDetail = ${JSON.stringify(videoDetail)}`);
+  console.log(
+    `video-stream-page...VideoDetail = ${JSON.stringify(videoDetail)}`
+  );
   const { toggleLoginModal } = useContext(AppContext);
   const [isChannelAlreadySubscribed, setIsChannelAlreadySubscribed] =
     useState(false);
@@ -39,7 +41,7 @@ const VideoStreamPage = () => {
             email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
             watchHistory: {
               date: new Date(),
-              videoId: videoDetail.id.videoId,
+              videoDetail: videoDetail,
             },
           },
         };

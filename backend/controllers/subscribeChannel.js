@@ -7,7 +7,6 @@ const subscribeChannel = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { email: req.body.email },
-      // { $push: { subscribedChannelIds: [req.params.channelId] } },
       {
         $push: {
           subscribedChannels: [

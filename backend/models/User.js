@@ -29,8 +29,8 @@ const UserSchema = new mongoose.Schema({
       date: {
         type: Date,
       },
-      videoId: {
-        type: String,
+      videoDetail: {
+        type: mongoose.Schema.Types.Mixed,
       },
     },
   ],

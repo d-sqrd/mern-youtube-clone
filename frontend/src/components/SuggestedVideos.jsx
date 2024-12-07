@@ -20,7 +20,6 @@ const SuggestedVideos = (props) => {
         url: `${process.env.REACT_APP_URL}/search`,
         params: {
           relatedToVideoId: parentVideoId,
-
           part: "id,snippet",
           type: "video",
           maxResults: "10",

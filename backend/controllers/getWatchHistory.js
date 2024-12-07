@@ -7,10 +7,7 @@ const watchHistory = async (req, res) => {
     const watchHistory = user.watchHistory;
     res.status(200).json({
       success: true,
-      watchHistory: {
-        date: watchHistory.date,
-        videoIdList: watchHistory.videoIdList,
-      },
+      watchHistory: watchHistory,
     });
   } catch (error) {
     res.status(400).json({ success: false });

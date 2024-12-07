@@ -26,8 +26,6 @@ const VideoCard = ({ videoDetail }) => {
       <Card
         sx={{
           height: 250,
-          // minWidth: "md",
-          // minWidth: "100vw",
           borderRadius: "10px",
         }}
       >

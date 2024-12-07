@@ -94,6 +94,11 @@ export default function Navbar({ setSearchbarString }) {
     navigate("/");
   };
 
+  const handleWatchHistoryClick = () => {
+    setAnchorEl(false);
+    navigate("/watchhistory");
+  };
+
   const window = useWindowSize();
 
   return (
@@ -221,7 +226,9 @@ export default function Navbar({ setSearchbarString }) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Watch History</MenuItem>
+                <MenuItem onClick={handleWatchHistoryClick}>
+                  Watch History
+                </MenuItem>
                 <MenuItem onClick={handleClose}>Liked Videos</MenuItem>
                 <MenuItem onClick={handleClose}>My Subscriptions</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
