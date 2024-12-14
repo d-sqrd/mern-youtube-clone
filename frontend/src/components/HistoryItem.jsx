@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import useWindowSize from "../hooks/useWindowSize";
 
 const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
   const thumbnailSrc =
@@ -35,7 +36,7 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
         };
         const responseAfterDelete = await axios.request(optionsForDelete);
         if (responseAfterDelete.statusCode === 200) {
-          // intimate user on the UI
+          // TODO::intimate user on the UI
         }
         const optionsForFetch = {
           method: "GET",
@@ -49,32 +50,55 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
         };
         const updatedWatchHistoryList = await axios.request(optionsForFetch);
         if (updatedWatchHistoryList) {
-          setWatchHistoryList(updatedWatchHistoryList.data.watchHistory);
+          setWatchHistoryList(updatedWatchHistoryList);
+          // setWatchHistoryList(updatedWatchHistoryList.data.watchHistory);
         }
       } catch (error) {
-        // add UI to handle error
+        // TODO::add UI to handle error
         console.log(`watch-history error = ${error}`);
       }
     }
   };
+
+  const window = useWindowSize();
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Card sx={{ display: "flex", width: "35vw", height: "25vh", margin: 1 }}>
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Card
+        sx={{
+          display: "flex",
+          width: "35vw",
+          height: "25vh",
+          ...(window.width < 1000 && { width: "100%", height: "30%" }),
+          margin: 1,
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            // justifyContent: "space-between",
+          }}
+        >
           <CardMedia
             component="img"
-            sx={{ width: 151, objectFit: "fill" }}
+            sx={{ width: "30%", height: "100%", objectFit: "fill" }}
             image={thumbnailSrc}
             alt={historyItem?.snippet?.title}
           />
+
           <CardContent>
-            <Typography component="div" variant="h6">
+            <Typography
+              component="div"
+              variant="subtitle1"
+              sx={{ fontWeight: "600" }}
+            >
               {historyItem?.snippet?.title?.length > 50
                 ? historyItem?.snippet?.title.slice(0, 50) + "..."
                 : historyItem?.snippet?.title}
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="subtitle2"
               component="div"
               sx={{ color: "text.secondary" }}
             >
@@ -85,6 +109,7 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
             sx={{
               opacity: "0.5",
               color: "gray",
+              marginLeft: "auto",
               "&:hover": { color: "red", opacity: "1" },
             }}
             onClick={() => handleDelete(historyItem)}
