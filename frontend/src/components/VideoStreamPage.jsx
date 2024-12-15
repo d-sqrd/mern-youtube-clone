@@ -32,7 +32,7 @@ const VideoStreamPage = () => {
     ) {
       try {
         const options = {
-          method: "POST",
+          method: "PATCH",
           url: "http://localhost:5000/api/v1/addToWatchHistory",
           headers: {
             authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
@@ -68,7 +68,7 @@ const VideoStreamPage = () => {
       // add the channel name and channel Id to the current user's DB document and then hide the subscribe button and show the unsubscribe button
       try {
         const options = {
-          method: "POST",
+          method: "PATCH",
           url: "http://localhost:5000/api/v1/subscribeChannel",
           headers: {
             authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
@@ -93,7 +93,7 @@ const VideoStreamPage = () => {
   const handleUnsubscribe = async () => {
     try {
       const options = {
-        method: "POST",
+        method: "PATCH",
         url: "http://localhost:5000/api/v1/unsubscribeChannel",
         headers: {
           authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,

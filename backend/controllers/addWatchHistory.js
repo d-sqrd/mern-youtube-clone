@@ -6,7 +6,7 @@ const addToWatchHistory = async (req, res) => {
     `inside add-to-watch-history route...body = ${req.body.watchHistory.videoDetail}`
   );
   try {
-    const user = await User.findOneAndUpdate(
+    const updatedUser = await User.findOneAndUpdate(
       {
         email: req.body.email,
       },
@@ -22,10 +22,10 @@ const addToWatchHistory = async (req, res) => {
       },
       { new: true }
     );
-    console.log(`add-to-watch-history route...user = ${user}`);
+    console.log(`add-to-watch-history route...user = ${updatedUser}`);
     res.status(200).json({
       success: true,
-      watchHistory: user.watchHistory,
+      watchHistory: updatedUser.watchHistory,
     });
   } catch (error) {
     console.log(`add-to-watch-history route...error = ${error}`);

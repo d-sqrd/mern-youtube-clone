@@ -2,6 +2,6 @@ const express = require("express");
 const router = express.Router();
 const addToWatchHistory = require("../controllers/addWatchHistory");
 
-router.post("/", addToWatchHistory);
+router.patch("/", addToWatchHistory);
 
 module.exports = router;

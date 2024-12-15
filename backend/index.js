@@ -12,6 +12,8 @@ const unsubscribeChannel = require("./routes/unsubscribeChannel");
 const getSubscribedChannels = require("./routes/getSubscribedChannels");
 const authenticateUser = require("./middleware/authenticateUser");
 const deleteFromWatchHistory = require("./controllers/deleteFromWatchHistory");
+const addLikedVideo = require("./routes/addLikedVideo");
+const removeLikedVideo = require("./routes/removeLikedVideo");
 
 const connectDB = require("./db/connect");
 app.use(cors());
@@ -31,6 +33,8 @@ app.use(
   authenticateUser,
   getSubscribedChannels
 );
+app.use("/api/v1/addLikedVideo", addLikedVideo);
+app.use("/api/v1/removeLikedVideo", removeLikedVideo);
 // app.use("/", (req, res) => {
 //   res.send("hello");
 // });

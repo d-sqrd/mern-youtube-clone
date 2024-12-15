@@ -8,6 +8,7 @@ import LoginModal from "./components/LoginModal";
 import { Box } from "@mui/material";
 import useWindowSize from "./hooks/useWindowSize";
 import WatchHistory from "./components/WatchHistory";
+import LikedVideos from "./components/LikedVideos";
 
 function App() {
   const [searchbarString, setSearchbarString] = useState("");
@@ -29,6 +30,7 @@ function App() {
             />
             <Route path="/video/:videoId" element={<VideoStreamPage />} />
             <Route path="/watchhistory" element={<WatchHistory />} />
+            <Route path="/likedvideos" element={<LikedVideos />} />
           </Routes>
         </Box>
       </Router>

@@ -44,6 +44,16 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
+  likedVideos: [
+    {
+      videoId: {
+        type: String,
+      },
+      videoDetail: {
+        type: mongoose.Schema.Types.Mixed,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", UserSchema);

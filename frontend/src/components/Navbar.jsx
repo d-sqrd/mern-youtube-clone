@@ -99,6 +99,11 @@ export default function Navbar({ setSearchbarString }) {
     navigate("/watchhistory");
   };
 
+  const handleLikedVideosClick = () => {
+    setAnchorEl(false);
+    navigate("/likedvideos");
+  };
+
   const window = useWindowSize();
 
   return (
@@ -133,7 +138,7 @@ export default function Navbar({ setSearchbarString }) {
             >
               <MenuIcon />
             </IconButton>
-            {window.width > 500 && (
+            {window.width >= 1000 && (
               <IconButton
                 size="large"
                 edge="start"
@@ -229,7 +234,9 @@ export default function Navbar({ setSearchbarString }) {
                 <MenuItem onClick={handleWatchHistoryClick}>
                   Watch History
                 </MenuItem>
-                <MenuItem onClick={handleClose}>Liked Videos</MenuItem>
+                <MenuItem onClick={handleLikedVideosClick}>
+                  Liked Videos
+                </MenuItem>
                 <MenuItem onClick={handleClose}>My Subscriptions</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>

@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  CardMedia,
-  Button,
-} from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Button, Link } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import useWindowSize from "../hooks/useWindowSize";
+import { useNavigate } from "react-router-dom";
 
 const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
+  const window = useWindowSize();
+  const navigate = useNavigate();
   const thumbnailSrc =
     historyItem?.snippet?.thumbnails?.default?.url ||
     historyItem?.snippet?.thumbnails?.medium?.url ||
@@ -60,7 +56,12 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
     }
   };
 
-  const window = useWindowSize();
+  const handleRouteToVideo = () => {
+    navigate(`/video/${historyItem.id.videoId}`, {
+      state: { videoDetail: historyItem },
+    });
+  };
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Card
@@ -77,7 +78,6 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
             width: "100%",
             display: "flex",
             flexDirection: "row",
-            // justifyContent: "space-between",
           }}
         >
           <CardMedia
@@ -87,23 +87,29 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
             alt={historyItem?.snippet?.title}
           />
 
-          <CardContent>
-            <Typography
-              component="div"
+          <CardContent sx={{ display: "flex", flexDirection: "column" }}>
+            <Link
+              component="button"
+              underline="none"
+              align="left"
               variant="subtitle1"
+              color="textPrimary"
               sx={{ fontWeight: "600" }}
+              onClick={handleRouteToVideo}
             >
               {historyItem?.snippet?.title?.length > 50
                 ? historyItem?.snippet?.title.slice(0, 50) + "..."
                 : historyItem?.snippet?.title}
-            </Typography>
-            <Typography
+            </Link>
+            <Link
+              component="button"
+              underline="none"
+              align="left"
               variant="subtitle2"
-              component="div"
-              sx={{ color: "text.secondary" }}
+              color="textSecondary"
             >
               {historyItem?.snippet?.channelTitle}
-            </Typography>
+            </Link>
           </CardContent>
           <Button
             sx={{
