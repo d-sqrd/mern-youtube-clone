@@ -33,8 +33,8 @@ app.use(
   authenticateUser,
   getSubscribedChannels
 );
-app.use("/api/v1/addLikedVideo", addLikedVideo);
-app.use("/api/v1/removeLikedVideo", removeLikedVideo);
+app.use("/api/v1/addLikedVideo", authenticateUser, addLikedVideo);
+app.use("/api/v1/removeLikedVideo", authenticateUser, removeLikedVideo);
 // app.use("/", (req, res) => {
 //   res.send("hello");
 // });
