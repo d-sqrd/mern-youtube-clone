@@ -17,6 +17,7 @@ const addLikedVideo = require("./routes/addLikedVideo");
 const removeLikedVideo = require("./routes/removeLikedVideo");
 
 const connectDB = require("./db/connect");
+const getLikedVideos = require("./controllers/getLikedVideos");
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/feed/videos", getFeedVideos);
@@ -37,6 +38,7 @@ app.use(
 );
 app.use("/api/v1/addLikedVideo", authenticateUser, addLikedVideo);
 app.use("/api/v1/removeLikedVideo", authenticateUser, removeLikedVideo);
+app.use("/api/v1/getLikedVideos", authenticateUser, getLikedVideos);
 // app.use("/", (req, res) => {
 //   res.send("hello");
 // });

@@ -16,6 +16,7 @@ const VideoStreamPage = () => {
   const url = `https://www.youtube.com/watch?v=${videoDetail.id.videoId}`;
   const [isChannelAlreadySubscribed, setIsChannelAlreadySubscribed] =
     useState(false);
+  const [isLikedVideo, setIsLikedVideo] = useState(null);
   const handleOnProgress = (event) => {
     console.log(`handleOnProgress = ${JSON.stringify(event)}`);
   };
@@ -115,6 +116,77 @@ const VideoStreamPage = () => {
       console.log(`video-stream-page...subscribe channel error = ${error}`);
     }
   };
+  const handleLikeClick = async () => {
+    if (
+      !localStorage.getItem("loginAuthToken") &&
+      !localStorage.getItem("loggedInUserEmail")
+    ) {
+      // set visibility of login modal to true
+      toggleLoginModal();
+    } else {
+      try {
+        const options = {
+          method: "PATCH",
+          url: "http://localhost:5000/api/v1/addLikedVideo",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
+          },
+          data: {
+            user: {
+              email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+            },
+            videoDetail: {
+              videoId: videoDetail.id.videoId,
+              videoDetail: videoDetail,
+            },
+          },
+        };
+        const response = await axios.request(options);
+        if (response.status === 200) {
+          console.log(`video-stream-page...like video successful`);
+          setIsLikedVideo(!isLikedVideo);
+        }
+      } catch (error) {
+        // add UI to handle error
+        console.log(`video-stream-page...subscribe channel error = ${error}`);
+      }
+    }
+  };
+  const handleUnlikeClick = async () => {
+    if (
+      !localStorage.getItem("loginAuthToken") &&
+      !localStorage.getItem("loggedInUserEmail")
+    ) {
+      // set visibility of login modal to true
+      toggleLoginModal();
+    } else {
+      try {
+        const options = {
+          method: "PATCH",
+          url: "http://localhost:5000/api/v1/removeLikedVideo",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
+          },
+          data: {
+            user: {
+              email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+            },
+            videoDetail: {
+              videoId: videoDetail.id.videoId,
+            },
+          },
+        };
+        const response = await axios.request(options);
+        if (response.status === 200) {
+          console.log(`video-stream-page...like video successful`);
+          setIsLikedVideo(false);
+        }
+      } catch (error) {
+        // add UI to handle error
+        console.log(`video-stream-page...subscribe channel error = ${error}`);
+      }
+    }
+  };
   useEffect(() => {
     console.log(`vid-stream-page...useEffect`);
     const checkChannelSubscriptionStatus = async () => {
@@ -156,7 +228,46 @@ const VideoStreamPage = () => {
         );
       }
     };
+    const checkVideoLikeStatus = async () => {
+      // console.log(`vid-stream-page...checkVideoLikeStatus`);
+      try {
+        // get liked videos list of currently logged in user from DB
+        const options = {
+          method: "GET",
+          url: "http://localhost:5000/api/v1/getLikedVideos",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
+          },
+          params: {
+            userEmail: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+          },
+        };
+        const response = await axios.request(options);
+        // console.log(
+        //   `video-stream-page...checkVideoLikeStatus response = ${JSON.stringify(
+        //     response
+        //   )}`
+        // );
+        if (response.status === 200) {
+          const likedVideosList = response.data.data.likedVideos;
+          const existingLikedVideo = likedVideosList.filter(
+            (likedVideo) => likedVideo.videoId === videoDetail.id.videoId
+          );
+          if (existingLikedVideo && existingLikedVideo.length) {
+            setIsLikedVideo(true);
+          } else {
+            setIsLikedVideo(false);
+          }
+        }
+      } catch (error) {
+        // add UI to handle error
+        console.log(
+          `video-stream-page...check channel subscription status error = ${error}`
+        );
+      }
+    };
     checkChannelSubscriptionStatus();
+    checkVideoLikeStatus();
   }, [videoDetail]);
 
   const windowHook = useWindowSize();
@@ -236,30 +347,52 @@ const VideoStreamPage = () => {
                   <Box>
                     <Button
                       variant="outlined"
+                      onClick={handleLikeClick}
                       sx={{
-                        color: "#000",
+                        color: "black",
+                        // backgroundColor: "black",
                         border: "1px solid black",
                         borderTopLeftRadius: "100px",
                         borderBottomLeftRadius: "100px",
                         borderRight: 0,
+                        ...(isLikedVideo && {
+                          color: "white",
+                          backgroundColor: "black",
+                        }),
                       }}
                     >
-                      <ThumbUpIcon sx={{ mr: 1 }} />
+                      <ThumbUpIcon
+                        sx={{
+                          mr: 1,
+                          color: "black",
+                          ...(isLikedVideo && { color: "white" }),
+                        }}
+                      />
                       <Typography sx={{ fontSize: "small" }}>
                         {`${Math.floor(Math.random() * 1000)}k`}
                       </Typography>
                     </Button>
                     <Button
                       variant="outlined"
+                      onClick={handleUnlikeClick}
                       sx={{
-                        color: "#000",
+                        color: "black",
                         border: "1px solid black",
                         borderTopRightRadius: "100px",
                         borderBottomRightRadius: "100px",
                         mr: 2,
+                        ...(!isLikedVideo && {
+                          color: "white",
+                          backgroundColor: "black",
+                        }),
                       }}
                     >
-                      <ThumbDownIcon />
+                      <ThumbDownIcon
+                        sx={{
+                          color: "black",
+                          ...(!isLikedVideo && { color: "white" }),
+                        }}
+                      />
                     </Button>
                   </Box>
                   <Box>
