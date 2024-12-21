@@ -2,10 +2,13 @@ const User = require("../models/User");
 
 const getSubscribedChannels = async (req, res) => {
   console.log(
-    `getSubscribedChannels route\nparams = ${JSON.stringify(req.params)}`
+    `getSubscribedChannels route\nparams = ${JSON.stringify(req.query)}`
   );
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.query.userEmail });
+    if (!user) {
+      throw new Error("Error fetching user details");
+    }
     const subscribedChannels = user.subscribedChannels;
     console.log(
       `getSubscribedChannels route\nresponse = ${JSON.stringify(
@@ -14,10 +17,13 @@ const getSubscribedChannels = async (req, res) => {
     );
     res.status(200).json({
       success: true,
-      subscribedChannels: subscribedChannels,
+      message: "Subcribed Channel list successfully found in DB",
+      data: {
+        subscribedChannels: subscribedChannels,
+      },
     });
-  } catch (error) {
-    res.status(400).json({ success: false });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err });
   }
 };
 

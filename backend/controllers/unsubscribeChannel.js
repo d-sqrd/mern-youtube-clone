@@ -2,15 +2,15 @@ const User = require("../models/User");
 
 const unsubscribeChannel = async (req, res) => {
   try {
-    const updatedUser = await User.findOneAndUpdate(
-      { email: req.body.email },
+    const user = await User.findOneAndUpdate(
+      { email: req.body.user.email },
       {
         $pull: {
           subscribedChannels: { channelId: req.body.channel.channelId },
         },
       }
     );
-    if (!updatedUser) {
+    if (!user) {
       throw new Error("Error unsubscribing channel");
     }
     res

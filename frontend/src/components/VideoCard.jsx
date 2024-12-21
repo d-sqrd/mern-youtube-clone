@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { Box, Link } from "@mui/material";
 import useWindowSize from "../hooks/useWindowSize";
+import { AppContext } from "../context/AppContext";
 
 const VideoCard = ({ videoDetail }) => {
   const thumbnailSrc =
@@ -13,12 +14,13 @@ const VideoCard = ({ videoDetail }) => {
     videoDetail?.snippet?.thumbnails?.medium?.url ||
     videoDetail?.snippet?.thumbnails?.high?.url;
   const navigate = useNavigate();
+  // const { updateVideoDetail } = useContext(AppContext);
   // console.log(`videoCard - videoDetail: ${JSON.stringify(videoDetail)}`);
   const handleClick = () => {
     navigate(`/video/${videoDetail.id.videoId}`, {
       state: { videoDetail: videoDetail },
     });
-    console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
+    // console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
   };
   const window = useWindowSize();
   return (

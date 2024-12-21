@@ -9,39 +9,34 @@ import Loading from "./Loading";
 const Feed = ({ searchString }) => {
   const [feedVideos, setFeedVideos] = useState([]);
   const [feedVideosLoaded, setFeedVideosLoaded] = useState(false);
-  // console.log(`Feed search string = ${searchString}`);
-
   useEffect(() => {
     const fetchFeedData = async () => {
+      console.log(`Feed component...searchString = ${searchString}`);
       const options = {
         method: "GET",
-        url: process.env.REACT_APP_URL + "/search",
+        url: "http://localhost:5000/api/v1/feed/videos",
         params: {
-          q: searchString || "music",
-          part: "snippet,id",
-          regionCode: "US",
-          maxResults: "101",
-          order: "date",
-        },
-        headers: {
-          "x-rapidapi-key": process.env.REACT_APP_API_KEY,
-          "x-rapidapi-host": process.env.REACT_APP_HOST,
+          searchString: searchString || "music",
         },
       };
-      console.log(`options = ${options.url}`);
       try {
         const response = await axios.request(options);
-        console.log(`Feed response data = ${JSON.stringify(response.data)}`);
-        setFeedVideos(response.data.items);
-        setFeedVideosLoaded(true);
+        if (response.status === 200) {
+          setFeedVideos(response.data.videoList);
+        }
       } catch (error) {
         console.error(error);
+      } finally {
+        setFeedVideosLoaded(true);
       }
     };
+
+    // for fetching data from API uncomment below line
     // fetchFeedData();
+
+    // for fetching data from local uncomment below 2 lines
     setFeedVideos(data.items);
     setFeedVideosLoaded(true);
-    // console.log(data);
   }, [searchString]);
 
   return (

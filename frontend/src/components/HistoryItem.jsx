@@ -82,7 +82,7 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
         >
           <CardMedia
             component="img"
-            sx={{ width: "30%", height: "100%", objectFit: "fill" }}
+            sx={{ maxWidth: "30%", height: "100%", objectFit: "fill" }}
             image={thumbnailSrc}
             alt={historyItem?.snippet?.title}
           />

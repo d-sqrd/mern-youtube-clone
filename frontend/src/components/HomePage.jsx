@@ -10,6 +10,7 @@ const HomePage = ({ searchbarString }) => {
   }, []);
 
   console.log(`Homepage render count = ${renderCount.current}`);
+  console.log(`Homepage searchbarString = ${searchbarString}`);
   return (
     <Grid2 container size={{ sm: 10 }} offset="auto">
       <Box sx={{ marginTop: 1 }}>

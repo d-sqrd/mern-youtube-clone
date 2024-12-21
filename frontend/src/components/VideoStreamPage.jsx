@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { Box, Button, Typography, Grid2 } from "@mui/material";
 import SuggestedVideos from "./SuggestedVideos";
@@ -10,16 +10,10 @@ import axios from "axios";
 import useWindowSize from "../hooks/useWindowSize";
 
 const VideoStreamPage = () => {
-  // const { videoId } = useParams();
-  // const url = `https://www.youtube.com/watch?v=${videoId}`;
-  const {
-    state: { videoDetail },
-  } = useLocation();
-  const url = `https://www.youtube.com/watch?v=${videoDetail.id.videoId}`;
-  console.log(
-    `video-stream-page...VideoDetail = ${JSON.stringify(videoDetail)}`
-  );
+  const location = useLocation();
+  const videoDetail = location.state.videoDetail;
   const { toggleLoginModal } = useContext(AppContext);
+  const url = `https://www.youtube.com/watch?v=${videoDetail.id.videoId}`;
   const [isChannelAlreadySubscribed, setIsChannelAlreadySubscribed] =
     useState(false);
   const handleOnProgress = (event) => {
@@ -74,9 +68,13 @@ const VideoStreamPage = () => {
             authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
           },
           data: {
-            email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
-            channelName: videoDetail.snippet.channelTitle,
-            channelId: videoDetail.snippet.channelId,
+            user: {
+              email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+            },
+            channel: {
+              channelName: videoDetail.snippet.channelTitle,
+              channelId: videoDetail.snippet.channelId,
+            },
           },
         };
         const response = await axios.request(options);
@@ -99,8 +97,12 @@ const VideoStreamPage = () => {
           authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
         },
         data: {
-          email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
-          channelId: videoDetail.snippet.channelId,
+          user: {
+            email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+          },
+          channel: {
+            channelId: videoDetail.snippet.channelId,
+          },
         },
       };
       const response = await axios.request(options);
@@ -114,7 +116,9 @@ const VideoStreamPage = () => {
     }
   };
   useEffect(() => {
+    console.log(`vid-stream-page...useEffect`);
     const checkChannelSubscriptionStatus = async () => {
+      console.log(`vid-stream-page...checkChannelSubscriptionStatus`);
       try {
         // get subscribed channel list of currently logged in user from DB
         const options = {
@@ -123,8 +127,8 @@ const VideoStreamPage = () => {
           headers: {
             authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
           },
-          data: {
-            email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+          params: {
+            userEmail: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
           },
         };
         const response = await axios.request(options);
@@ -134,14 +138,16 @@ const VideoStreamPage = () => {
           )}`
         );
         if (response.status === 200) {
-          const subscribedChannelList = response.data.subscribedChannels;
-          subscribedChannelList.forEach((channelObj) => {
-            if (channelObj.channelId === videoDetail.snippet.channelId) {
-              // hide subscribe button and show unsubscribe button
-              setIsChannelAlreadySubscribed(true);
-              return;
-            }
-          });
+          const subscribedChannelList = response.data.data.subscribedChannels;
+          const existingSubscribedChannel = subscribedChannelList.filter(
+            (subscribedChannel) =>
+              subscribedChannel.channelId === videoDetail.snippet.channelId
+          );
+          if (existingSubscribedChannel && existingSubscribedChannel.length) {
+            setIsChannelAlreadySubscribed(true);
+          } else {
+            setIsChannelAlreadySubscribed(false);
+          }
         }
       } catch (error) {
         // add UI to handle error
@@ -151,10 +157,10 @@ const VideoStreamPage = () => {
       }
     };
     checkChannelSubscriptionStatus();
-  }, [videoDetail.snippet.channelId]);
+  }, [videoDetail]);
 
-  const window = useWindowSize();
-  console.log(`vid-stream-page - window = ${JSON.stringify(window)}`);
+  const windowHook = useWindowSize();
+  // console.log(`vid-stream-page - window = ${JSON.stringify(window)}`);
   return (
     <Box sx={{ pt: 1, background: "#fff" }}>
       <Grid2 container display="flex" direction="row">
@@ -171,7 +177,7 @@ const VideoStreamPage = () => {
               // border: "3px solid magenta",
               display: "flex",
               flexDirection: "column",
-              ...(window.width < 500 && { mb: 1 }),
+              ...(windowHook.width < 500 && { mb: 1 }),
               // top: 0,
               // pt: 1,
             }}
@@ -188,7 +194,9 @@ const VideoStreamPage = () => {
                 controls={true}
                 // onProgress={handleOnProgress}
                 onStart={handleOnStart}
-                width={window.width < 500 ? `${window.width}px` : "100%"}
+                width={
+                  windowHook.width < 500 ? `${windowHook.width}px` : "100%"
+                }
               />
             </Box>
             {/* Container Box for video title and channel title, like, dislike, subscribe and unsubscribe buttons */}
@@ -202,10 +210,10 @@ const VideoStreamPage = () => {
               <Box
                 sx={{
                   display: "flex",
-                  ...(window.width < 500 && {
+                  ...(windowHook.width < 500 && {
                     flexDirection: "column",
                   }),
-                  ...(window.width >= 500 && {
+                  ...(windowHook.width >= 500 && {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -220,7 +228,7 @@ const VideoStreamPage = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    ...(window.width < 500 && {
+                    ...(windowHook.width < 500 && {
                       justifyContent: "space-between",
                     }),
                   }}
