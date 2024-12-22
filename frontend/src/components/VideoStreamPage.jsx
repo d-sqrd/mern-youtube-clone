@@ -139,6 +139,7 @@ const VideoStreamPage = () => {
               videoId: videoDetail.id.videoId,
               videoDetail: videoDetail,
             },
+            date: new Date(),
           },
         };
         const response = await axios.request(options);

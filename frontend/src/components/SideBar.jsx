@@ -19,6 +19,9 @@ import { Dialog } from "@mui/material";
 import useWindowSize from "../hooks/useWindowSize";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const getSidebarIcon = (category) => {
   switch (category) {
@@ -43,6 +46,7 @@ const getSidebarIcon = (category) => {
 
 const SideBar = ({ sidebarVisibility }) => {
   console.log(`Sidebar sidebarVisibility = ${sidebarVisibility}`);
+  const navigate = useNavigate();
   const fetchCategoryWiseVideos = async (category) => {
     const options = {
       method: "GET",
@@ -69,9 +73,12 @@ const SideBar = ({ sidebarVisibility }) => {
       console.error(error);
     }
   };
-
   const handleOnClick = (category) => {
     fetchCategoryWiseVideos(category);
+  };
+  const handleYTIcon = () => {
+    toggleSidebar();
+    navigate("/");
   };
   const categories = [
     "Music",
@@ -123,15 +130,32 @@ const SideBar = ({ sidebarVisibility }) => {
               }}
             >
               {window.width < 1000 && (
-                <IconButton
-                  size="large"
-                  edge="end"
-                  color="inherit"
-                  aria-label="menu"
-                  onClick={toggleSidebar}
+                <Box
+                  sx={{
+                    display: "flex",
+                  }}
                 >
-                  <CloseIcon />
-                </IconButton>
+                  <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 2 }}
+                    onClick={handleYTIcon}
+                  >
+                    <YouTubeIcon sx={{ color: "red" }} />
+                    <Typography variant="h6">YouTube</Typography>
+                  </IconButton>
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    color="inherit"
+                    aria-label="menu"
+                    onClick={toggleSidebar}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
               )}
 
               {categories.map((categoryItem, index) => {

@@ -110,6 +110,8 @@ export default function Navbar({ setSearchbarString }) {
     <Box
       sx={{
         flexGrow: 1,
+        // height: "200px",
+        // border: "1px solid black",
       }}
     >
       {/* <AppBar position="static"> */}
@@ -120,9 +122,8 @@ export default function Navbar({ setSearchbarString }) {
         alignItems="center"
         justifyContent="space-between"
         sx={{
-          // backgroundColor: "#fff",
-          pt: 1,
           backgroundColor: "#fff",
+          pt: 1,
         }}
       >
         {/* Sidebar, Sidebar Toggle Button and Youtube Icon Parent Box */}
@@ -147,7 +148,7 @@ export default function Navbar({ setSearchbarString }) {
                 sx={{ mr: 2 }}
                 onClick={handleYTIcon}
               >
-                <YouTubeIcon />
+                <YouTubeIcon sx={{ color: "red" }} />
                 <Typography variant="h6">YouTube</Typography>
               </IconButton>
             )}

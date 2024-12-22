@@ -46,6 +46,9 @@ const UserSchema = new mongoose.Schema({
   ],
   likedVideos: [
     {
+      date: {
+        type: Date,
+      },
       videoId: {
         type: String,
       },

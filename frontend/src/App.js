@@ -9,7 +9,6 @@ import { Box } from "@mui/material";
 // import useWindowSize from "./hooks/useWindowSize";
 import WatchHistory from "./components/WatchHistory";
 import LikedVideos from "./components/LikedVideos";
-import Modal from "./components/Modal";
 
 function App() {
   const [searchbarString, setSearchbarString] = useState("");
@@ -23,7 +22,11 @@ function App() {
           <Navbar setSearchbarString={setSearchbarString} />
           <LoginModal />
         </Box>
-        <Box>
+        <Box
+          sx={{
+            background: "#ef5f",
+          }}
+        >
           <Routes>
             <Route
               path="/"

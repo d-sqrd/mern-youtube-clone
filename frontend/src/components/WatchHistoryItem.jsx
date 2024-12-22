@@ -5,8 +5,8 @@ import axios from "axios";
 import useWindowSize from "../hooks/useWindowSize";
 import { useNavigate } from "react-router-dom";
 
-const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
-  const window = useWindowSize();
+const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
+  const windowHook = useWindowSize();
   const navigate = useNavigate();
   const thumbnailSrc =
     historyItem?.snippet?.thumbnails?.default?.url ||
@@ -32,7 +32,7 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
         };
         const responseAfterDelete = await axios.request(optionsForDelete);
         if (responseAfterDelete.statusCode === 200) {
-          // TODO::intimate user on the UI
+          // TODO::intimate user on the UI _> do a sliding animation kind of thing
         }
         const optionsForFetch = {
           method: "GET",
@@ -63,14 +63,22 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        background: "#ef5f",
+      }}
+    >
       <Card
         sx={{
           display: "flex",
           width: "35vw",
           height: "25vh",
-          ...(window.width < 1000 && { width: "100%", height: "30%" }),
           margin: 1,
+          ...(windowHook.width < 1000 && { width: "100%", height: "30%" }),
+          boxShadow:
+            " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         }}
       >
         <Box
@@ -128,4 +136,4 @@ const HistoryItem = ({ historyItem, setWatchHistoryList }) => {
   );
 };
 
-export default HistoryItem;
+export default WatchHistoryItem;

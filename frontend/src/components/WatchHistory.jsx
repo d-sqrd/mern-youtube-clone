@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import HistoryItem from "./HistoryItem";
+import WatchHistoryItem from "./WatchHistoryItem";
 
 import videos from "../suggestedVideos";
 
@@ -10,25 +10,15 @@ const WatchHistory = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const sortAndSetWatchHistoryList = (responseFromDB) => {
-    if (
-      responseFromDB.data.hasOwnProperty("watchHistory") &&
-      responseFromDB.data.watchHistory.length > 0
-    ) {
-      responseFromDB.data.watchHistory.sort(
-        (watchHistoryItem1, watchHistoryItem2) => {
-          if (
-            watchHistoryItem1.hasOwnProperty("date") &&
-            watchHistoryItem2.hasOwnProperty("date")
-          ) {
-            return watchHistoryItem1.date - watchHistoryItem2.date;
-          }
-          return 0;
-        }
-      );
-      setWatchHistoryList(responseFromDB.data.watchHistory);
-    }
+    let watchHistoryList = responseFromDB.data.data.watchHistory;
+    watchHistoryList.sort((watchHistoryItem1, watchHistoryItem2) => {
+      return watchHistoryItem1.date - watchHistoryItem2.date;
+    });
+    setWatchHistoryList(watchHistoryList);
   };
+
   useEffect(() => {
+    console.log(`watch-history...offsetY = ${window.pageYOffset}`);
     const fetchWatchHistory = async () => {
       const authToken = localStorage.getItem("loginAuthToken");
       const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
@@ -38,8 +28,8 @@ const WatchHistory = () => {
           const options = {
             method: "GET",
             url: URL,
-            data: {
-              email: loggedInUserEmail,
+            params: {
+              userEmail: loggedInUserEmail,
             },
             headers: {
               authorization: `Bearer ${authToken}`,
@@ -47,7 +37,7 @@ const WatchHistory = () => {
           };
           const response = await axios.request(options);
           console.log(`watch-history response = ${JSON.stringify(response)}`);
-          if (response) {
+          if (response.status === 200) {
             sortAndSetWatchHistoryList(response);
           }
         } catch (error) {
@@ -59,10 +49,9 @@ const WatchHistory = () => {
     // fetchWatchHistory();
     setWatchHistoryList(videos.items);
     setIsDataLoaded(true);
-    console.log(`watch-history-item....isDataLoaded = ${isDataLoaded}`);
   }, []);
   return (
-    <Box>
+    <Box sx={{ height: "100vh" }}>
       {/* UI when user is not logged in but tries to access Watch History route */}
       {!localStorage.getItem("loginAuthToken") && (
         <Box
@@ -70,6 +59,7 @@ const WatchHistory = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            transform: "translateY(500%)",
           }}
         >
           <Typography variant="h5">
@@ -95,7 +85,7 @@ const WatchHistory = () => {
                 return (
                   <Box key={index}>
                     {/* when watch history list will be fetched from DB then pass the date field as well as prop to HistoryItem */}
-                    <HistoryItem
+                    <WatchHistoryItem
                       historyItem={historyItem}
                       setWatchHistoryList={sortAndSetWatchHistoryList}
                     />

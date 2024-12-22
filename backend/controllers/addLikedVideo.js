@@ -8,6 +8,7 @@ const updateUserDocument = async (req, res) => {
       $push: {
         likedVideos: [
           {
+            date: req.body.date,
             videoId: req.body.videoDetail.videoId,
             videoDetail: req.body.videoDetail.videoDetail,
           },

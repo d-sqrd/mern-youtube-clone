@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const getFeedVideos = require("./routes/getFeedVideos");
 const authRouter = require("./routes/auth");
-const watchHistoryRouter = require("./routes/getWatchHistory");
+const getWatchHistoryRouter = require("./routes/getWatchHistory");
 const addWatchHistoryRouter = require("./routes/addWatchHistory");
 const subscribeChannel = require("./routes/subscribeChannel");
 const unsubscribeChannel = require("./routes/unsubscribeChannel");
@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/v1/feed/videos", getFeedVideos);
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/watchHistory", authenticateUser, watchHistoryRouter);
+app.use("/api/v1/watchHistory", authenticateUser, getWatchHistoryRouter);
 app.use("/api/v1/addToWatchHistory", authenticateUser, addWatchHistoryRouter);
 app.use(
   "/api/v1/deleteFromWatchHistory",
