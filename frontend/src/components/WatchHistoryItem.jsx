@@ -6,12 +6,13 @@ import useWindowSize from "../hooks/useWindowSize";
 import { useNavigate } from "react-router-dom";
 
 const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
+  // console.log(`watch-history-item = ${JSON.stringify(historyItem)}`);
   const windowHook = useWindowSize();
   const navigate = useNavigate();
   const thumbnailSrc =
-    historyItem?.snippet?.thumbnails?.default?.url ||
-    historyItem?.snippet?.thumbnails?.medium?.url ||
-    historyItem?.snippet?.thumbnails?.high?.url;
+    historyItem.videoDetail.snippet.thumbnails.default.url ||
+    historyItem.videoDetail.snippet.thumbnails.medium.url ||
+    historyItem.videoDetail.snippet.thumbnails.high.url;
 
   const handleDelete = async (historyItem) => {
     const authToken = localStorage.getItem("loginAuthToken");
@@ -19,46 +20,36 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
     if (authToken && loggedInUserEmail) {
       const URL = "http://localhost:5000/api/v1/deleteFromWatchHistory";
       try {
-        const optionsForDelete = {
+        const options = {
           method: "DELETE",
           url: URL,
           data: {
-            email: loggedInUserEmail,
-            objectId: historyItem._id,
+            user: {
+              email: loggedInUserEmail,
+            },
+            videoDetail: {
+              videoId: historyItem.videoDetail.id.videoId,
+            },
           },
           headers: {
             authorization: `Bearer ${authToken}`,
           },
         };
-        const responseAfterDelete = await axios.request(optionsForDelete);
-        if (responseAfterDelete.statusCode === 200) {
+        const response = await axios.request(options);
+        if (response.status === 200) {
           // TODO::intimate user on the UI _> do a sliding animation kind of thing
+          setWatchHistoryList(response);
         }
-        const optionsForFetch = {
-          method: "GET",
-          url: URL,
-          data: {
-            email: loggedInUserEmail,
-          },
-          headers: {
-            authorization: `Bearer ${authToken}`,
-          },
-        };
-        const updatedWatchHistoryList = await axios.request(optionsForFetch);
-        if (updatedWatchHistoryList) {
-          setWatchHistoryList(updatedWatchHistoryList);
-          // setWatchHistoryList(updatedWatchHistoryList.data.watchHistory);
-        }
-      } catch (error) {
+      } catch (err) {
         // TODO::add UI to handle error
-        console.log(`watch-history error = ${error}`);
+        console.log(`watch-history error = ${err}`);
       }
     }
   };
 
   const handleRouteToVideo = () => {
-    navigate(`/video/${historyItem.id.videoId}`, {
-      state: { videoDetail: historyItem },
+    navigate(`/video/${historyItem.videoDetail.id.videoId}`, {
+      state: { videoDetail: historyItem.videoDetail },
     });
   };
 
@@ -92,7 +83,7 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
             component="img"
             sx={{ maxWidth: "30%", height: "100%", objectFit: "fill" }}
             image={thumbnailSrc}
-            alt={historyItem?.snippet?.title}
+            alt={historyItem.videoDetail.snippet.title}
           />
 
           <CardContent sx={{ display: "flex", flexDirection: "column" }}>
@@ -105,9 +96,9 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
               sx={{ fontWeight: "600" }}
               onClick={handleRouteToVideo}
             >
-              {historyItem?.snippet?.title?.length > 50
-                ? historyItem?.snippet?.title.slice(0, 50) + "..."
-                : historyItem?.snippet?.title}
+              {historyItem.videoDetail.snippet.title.length > 50
+                ? historyItem.videoDetail.snippet.title.slice(0, 50) + "..."
+                : historyItem.videoDetail.snippet.title}
             </Link>
             <Link
               component="button"
@@ -116,7 +107,7 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
               variant="subtitle2"
               color="textSecondary"
             >
-              {historyItem?.snippet?.channelTitle}
+              {historyItem.videoDetail.snippet.channelTitle}
             </Link>
           </CardContent>
           <Button

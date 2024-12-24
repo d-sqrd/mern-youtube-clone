@@ -15,9 +15,9 @@ const authenticateUser = require("./middleware/authenticateUser");
 const deleteFromWatchHistory = require("./controllers/deleteFromWatchHistory");
 const addLikedVideo = require("./routes/addLikedVideo");
 const removeLikedVideo = require("./routes/removeLikedVideo");
-
-const connectDB = require("./db/connect");
 const getLikedVideos = require("./controllers/getLikedVideos");
+const connectDB = require("./db/connect");
+
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/feed/videos", getFeedVideos);

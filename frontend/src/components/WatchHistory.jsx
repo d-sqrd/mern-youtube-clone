@@ -10,15 +10,18 @@ const WatchHistory = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const sortAndSetWatchHistoryList = (responseFromDB) => {
-    let watchHistoryList = responseFromDB.data.data.watchHistory;
-    watchHistoryList.sort((watchHistoryItem1, watchHistoryItem2) => {
-      return watchHistoryItem1.date - watchHistoryItem2.date;
-    });
-    setWatchHistoryList(watchHistoryList);
+    try {
+      let watchHistoryList = responseFromDB.data.data.watchHistory;
+      watchHistoryList.sort((watchHistoryItem1, watchHistoryItem2) => {
+        return watchHistoryItem1.date - watchHistoryItem2.date;
+      });
+      setWatchHistoryList(watchHistoryList);
+    } catch (err) {
+      console.log(`watch-history...error setting list from DB = ${err}`);
+    }
   };
 
   useEffect(() => {
-    console.log(`watch-history...offsetY = ${window.pageYOffset}`);
     const fetchWatchHistory = async () => {
       const authToken = localStorage.getItem("loginAuthToken");
       const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
@@ -43,12 +46,14 @@ const WatchHistory = () => {
         } catch (error) {
           // add UI to handle error
           console.log(`watch-history error = ${error}`);
+        } finally {
+          setIsDataLoaded(true);
         }
       }
     };
-    // fetchWatchHistory();
-    setWatchHistoryList(videos.items);
-    setIsDataLoaded(true);
+    fetchWatchHistory();
+    // setWatchHistoryList(videos.items);
+    // setIsDataLoaded(true);
   }, []);
   return (
     <Box sx={{ height: "100vh" }}>

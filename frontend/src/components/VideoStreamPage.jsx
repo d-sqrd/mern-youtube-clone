@@ -33,10 +33,14 @@ const VideoStreamPage = () => {
             authorization: `Bearer ${localStorage.getItem("loginAuthToken")}`,
           },
           data: {
-            email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
-            watchHistory: {
-              date: new Date(),
-              videoDetail: videoDetail,
+            user: {
+              email: localStorage.getItem("loggedInUserEmail"), // modify code to fetch logged-in user email from AppContext
+            },
+            data: {
+              watchHistory: {
+                date: new Date(),
+                videoDetail: videoDetail,
+              },
             },
           },
         };
