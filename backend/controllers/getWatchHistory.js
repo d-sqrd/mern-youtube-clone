@@ -1,7 +1,6 @@
 const User = require("../models/User");
 
 const getWatchHistory = async (req, res) => {
-  console.log(`watchHistory route\nparams = ${JSON.stringify(req.params)}`);
   try {
     const user = await User.findOne({ email: req.query.userEmail });
     if (!user) {

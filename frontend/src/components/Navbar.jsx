@@ -96,6 +96,7 @@ export default function Navbar({ setSearchbarString }) {
 
   const handleWatchHistoryClick = () => {
     setAnchorEl(false);
+    setSearchbarString("");
     navigate("/watchhistory");
   };
 
@@ -104,6 +105,10 @@ export default function Navbar({ setSearchbarString }) {
     navigate("/likedvideos");
   };
 
+  const handleMySubscriptionsClick = () => {
+    setAnchorEl(false);
+    navigate("/subscribedchannels");
+  };
   const window = useWindowSize();
 
   return (
@@ -238,7 +243,9 @@ export default function Navbar({ setSearchbarString }) {
                 <MenuItem onClick={handleLikedVideosClick}>
                   Liked Videos
                 </MenuItem>
-                <MenuItem onClick={handleClose}>My Subscriptions</MenuItem>
+                <MenuItem onClick={handleMySubscriptionsClick}>
+                  My Subscriptions
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Box>

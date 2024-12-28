@@ -15,8 +15,14 @@ const VideoCard = ({ videoDetail }) => {
   const navigate = useNavigate();
   // const { updateVideoDetail } = useContext(AppContext);
   // console.log(`videoCard - videoDetail: ${JSON.stringify(videoDetail)}`);
-  const handleClick = () => {
+  const handleRouteToVideo = () => {
     navigate(`/video/${videoDetail.id.videoId}`, {
+      state: { videoDetail: videoDetail },
+    });
+    // console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
+  };
+  const handleRouteToChannel = () => {
+    navigate(`/channel/${videoDetail.snippet.channelId}`, {
       state: { videoDetail: videoDetail },
     });
     // console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
@@ -36,8 +42,8 @@ const VideoCard = ({ videoDetail }) => {
           height="140"
           image={thumbnailSrc}
           videoDetail={videoDetail}
-          onClick={handleClick}
-          sx={{ objectFit: "fill" }}
+          onClick={handleRouteToVideo}
+          sx={{ objectFit: "fill", cursor: "pointer" }}
         />
         <CardContent sx={{ display: "flex", flexDirection: "column" }}>
           <Link
@@ -45,7 +51,7 @@ const VideoCard = ({ videoDetail }) => {
             gutterBottom
             variant="h5"
             underline="none"
-            onClick={handleClick}
+            onClick={handleRouteToVideo}
             align="left"
             color="textPrimary"
             sx={{ fontSize: "medium", fontWeight: "600" }}
@@ -59,7 +65,7 @@ const VideoCard = ({ videoDetail }) => {
             gutterBottom
             variant="h5"
             underline="none"
-            onClick={handleClick}
+            onClick={handleRouteToChannel}
             align="left"
             color="textSecondary"
             sx={{ fontSize: "small", fontWeight: "600" }}

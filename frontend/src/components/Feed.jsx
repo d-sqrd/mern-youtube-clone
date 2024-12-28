@@ -6,19 +6,18 @@ import data from "../feedVideos";
 import VideoCard from "./VideoCard";
 import Loading from "./Loading";
 
-const Feed = ({ searchString }) => {
+// const Feed = ({ searchString }) => {
+const Feed = ({ optionsForFetchingFeedVideos }) => {
   const [feedVideos, setFeedVideos] = useState([]);
   const [feedVideosLoaded, setFeedVideosLoaded] = useState(false);
+  console.log(
+    `feed...optionsForFetchingFeedVideos = ${JSON.stringify(
+      optionsForFetchingFeedVideos
+    )}`
+  );
   useEffect(() => {
     const fetchFeedData = async () => {
-      console.log(`Feed component...searchString = ${searchString}`);
-      const options = {
-        method: "GET",
-        url: "http://localhost:5000/api/v1/feed/videos",
-        params: {
-          searchString: searchString || "music",
-        },
-      };
+      const options = optionsForFetchingFeedVideos;
       try {
         const response = await axios.request(options);
         if (response.status === 200) {
@@ -32,17 +31,17 @@ const Feed = ({ searchString }) => {
     };
 
     // for fetching data from API uncomment below line
-    // fetchFeedData();
+    fetchFeedData();
 
     // for fetching data from local uncomment below 2 lines
-    setFeedVideos(data.items);
-    setFeedVideosLoaded(true);
-  }, [searchString]);
+    // setFeedVideos(data.items);
+    // setFeedVideosLoaded(true);
+  }, [optionsForFetchingFeedVideos]);
 
   return (
     <Box>
       <Grid2 container spacing={2}>
-        {feedVideosLoaded ? (
+        {feedVideosLoaded && feedVideos ? (
           feedVideos.map((videoItem, index) => {
             return (
               <Grid2 key={index} size={{ sm: 6, md: 4, xl: 3 }}>

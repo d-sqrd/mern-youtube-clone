@@ -6,15 +6,14 @@ import Navbar from "./components/Navbar";
 import { useState } from "react";
 import LoginModal from "./components/LoginModal";
 import { Box } from "@mui/material";
-// import useWindowSize from "./hooks/useWindowSize";
 import WatchHistory from "./components/WatchHistory";
 import LikedVideos from "./components/LikedVideos";
+import SubscribedChannels from "./components/SubscribedChannels";
+import ChannelPage from "./components/ChannelPage";
 
 function App() {
   const [searchbarString, setSearchbarString] = useState("");
-  console.log(`App.js searchbarString = ${searchbarString}`);
-  // const window = useWindowSize();
-  // console.log(`App.js useWindowSize = ${JSON.stringify(window)}`);
+  // console.log(`App.js searchbarString = ${searchbarString}`);
   return (
     <div className="App">
       <Router>
@@ -35,6 +34,11 @@ function App() {
             <Route path="/video/:videoId" element={<VideoStreamPage />} />
             <Route path="/watchhistory" element={<WatchHistory />} />
             <Route path="/likedvideos" element={<LikedVideos />} />
+            <Route
+              path="/subscribedchannels"
+              element={<SubscribedChannels />}
+            />
+            <Route path="/channel/:channelId" element={<ChannelPage />} />
           </Routes>
         </Box>
       </Router>

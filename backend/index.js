@@ -16,6 +16,8 @@ const deleteFromWatchHistory = require("./controllers/deleteFromWatchHistory");
 const addLikedVideo = require("./routes/addLikedVideo");
 const removeLikedVideo = require("./routes/removeLikedVideo");
 const getLikedVideos = require("./controllers/getLikedVideos");
+const getChannelVideos = require("./routes/getChannelVideos");
+
 const connectDB = require("./db/connect");
 
 app.use(cors());
@@ -39,6 +41,7 @@ app.use(
 app.use("/api/v1/addLikedVideo", authenticateUser, addLikedVideo);
 app.use("/api/v1/removeLikedVideo", authenticateUser, removeLikedVideo);
 app.use("/api/v1/getLikedVideos", authenticateUser, getLikedVideos);
+app.use("/api/v1/getChannelVideos", getChannelVideos);
 // app.use("/", (req, res) => {
 //   res.send("hello");
 // });

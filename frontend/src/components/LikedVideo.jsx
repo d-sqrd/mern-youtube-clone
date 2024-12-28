@@ -3,7 +3,7 @@ import { Box, Card, CardContent, CardMedia, Link } from "@mui/material";
 import useWindowSize from "../hooks/useWindowSize";
 import { useNavigate } from "react-router-dom";
 
-const LikedVIdeoItem = ({ likedVideo }) => {
+const LikedVideo = ({ likedVideo }) => {
   const windowHook = useWindowSize();
   const navigate = useNavigate();
   const thumbnailSrc =
@@ -133,4 +133,4 @@ const LikedVIdeoItem = ({ likedVideo }) => {
   );
 };
 
-export default LikedVIdeoItem;
+export default LikedVideo;

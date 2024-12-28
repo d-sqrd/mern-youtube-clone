@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
-import LikedVideoItem from "./LikedVideoItem";
+import LikedVideo from "./LikedVideo";
 
 const LikedVideos = () => {
   const [likedVideoList, setLikedVideoList] = useState([]);
@@ -88,7 +88,7 @@ const LikedVideos = () => {
                 return (
                   <Box key={index}>
                     {/* when watch history list will be fetched from DB then pass the date field as well as prop to HistoryItem */}
-                    <LikedVideoItem likedVideo={likedVideo.videoDetail} />
+                    <LikedVideo likedVideo={likedVideo.videoDetail} />
                   </Box>
                 );
               })}
