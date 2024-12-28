@@ -4,6 +4,7 @@ const app = express();
 const PORT = 5000;
 require("dotenv").config();
 
+const authenticateUser = require("./middleware/authenticateUser");
 const getFeedVideos = require("./routes/getFeedVideos");
 const authRouter = require("./routes/auth");
 const getWatchHistoryRouter = require("./routes/getWatchHistory");
@@ -11,12 +12,11 @@ const addWatchHistoryRouter = require("./routes/addWatchHistory");
 const subscribeChannel = require("./routes/subscribeChannel");
 const unsubscribeChannel = require("./routes/unsubscribeChannel");
 const getSubscribedChannels = require("./routes/getSubscribedChannels");
-const authenticateUser = require("./middleware/authenticateUser");
-const deleteFromWatchHistory = require("./controllers/deleteFromWatchHistory");
+const deleteFromWatchHistory = require("./routes/deleteFromWatchHistory");
 const addLikedVideo = require("./routes/addLikedVideo");
 const removeLikedVideo = require("./routes/removeLikedVideo");
-const getLikedVideos = require("./controllers/getLikedVideos");
-const getChannelVideos = require("./routes/getChannelVideos");
+const getLikedVideos = require("./routes/getLikedVideos");
+const getRelatedVideos = require("./routes/getRelatedVideos");
 
 const connectDB = require("./db/connect");
 
@@ -41,7 +41,7 @@ app.use(
 app.use("/api/v1/addLikedVideo", authenticateUser, addLikedVideo);
 app.use("/api/v1/removeLikedVideo", authenticateUser, removeLikedVideo);
 app.use("/api/v1/getLikedVideos", authenticateUser, getLikedVideos);
-app.use("/api/v1/getChannelVideos", getChannelVideos);
+app.use("/api/v1/getRelatedVideos", getRelatedVideos);
 // app.use("/", (req, res) => {
 //   res.send("hello");
 // });

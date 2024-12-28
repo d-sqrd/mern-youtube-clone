@@ -6,7 +6,6 @@ import {
   Slide,
 } from "@mui/material";
 import React, { useContext } from "react";
-import axios from "axios";
 import { AppContext } from "../context/AppContext";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import TheatersIcon from "@mui/icons-material/Theaters";
@@ -44,37 +43,12 @@ const getSidebarIcon = (category) => {
   }
 };
 
-const SideBar = ({ sidebarVisibility }) => {
-  console.log(`Sidebar sidebarVisibility = ${sidebarVisibility}`);
+const SideBar = ({ setSearchbarString }) => {
   const navigate = useNavigate();
-  const fetchCategoryWiseVideos = async (category) => {
-    const options = {
-      method: "GET",
-      url: process.env.REACT_APP_URL + "/search",
-      params: {
-        q: category,
-        part: "snippet,id",
-        regionCode: "US",
-        maxResults: "101",
-        order: "date",
-      },
-      headers: {
-        "x-rapidapi-key": process.env.REACT_APP_API_KEY,
-        "x-rapidapi-host": process.env.REACT_APP_HOST,
-      },
-    };
-    console.log(`options = ${options.url}`);
-    try {
-      const response = await axios.request(options);
-      console.log(`Sidebar = ${JSON.stringify(response.data)}`);
-      // setFeedVideos(response.data.items);
-      // setFeedVideosLoaded(true);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   const handleOnClick = (category) => {
-    fetchCategoryWiseVideos(category);
+    setSearchbarString(category);
+    toggleSidebar();
+    navigate("/");
   };
   const handleYTIcon = () => {
     toggleSidebar();
@@ -189,34 +163,6 @@ const SideBar = ({ sidebarVisibility }) => {
       </Dialog>
     </div>
   );
-
-  // return (
-  //   <>
-  //     <aside
-  //       className={`${isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}`}
-  //     >
-  // <Box container display="flex" flexDirection="column">
-  //   {categories.map((categoryItem, index) => {
-  //     return (
-  //       <Box
-  //         key={index}
-  //         sx={{
-  //           marginLeft: 2,
-  //           // border: "1px solid red",
-  //           borderRadius: "10px",
-  //         }}
-  //       >
-  //         <ListItemButton onClick={() => handleOnClick(categoryItem)}>
-  //           <ListItemIcon>{getSidebarIcon(categoryItem)}</ListItemIcon>
-  //           <ListItemText primary={categoryItem} />
-  //         </ListItemButton>
-  //       </Box>
-  //     );
-  //   })}
-  // </Box>
-  //     </aside>
-  //   </>
-  // );
 };
 
 export default SideBar;

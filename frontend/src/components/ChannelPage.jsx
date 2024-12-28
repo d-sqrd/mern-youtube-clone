@@ -56,7 +56,7 @@ const ChannelPage = () => {
   //   });
   const optionsForFetchingFeedVideos = {
     method: "GET",
-    url: "http://localhost:5000/api/v1/getChannelVideos",
+    url: "http://localhost:5000/api/v1/feed/videos",
     params: {
       // channelId: channel.channelId,  // should work like this _> refactor code
       channelId: channel.items.id,

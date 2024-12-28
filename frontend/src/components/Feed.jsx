@@ -20,8 +20,10 @@ const Feed = ({ optionsForFetchingFeedVideos }) => {
       const options = optionsForFetchingFeedVideos;
       try {
         const response = await axios.request(options);
+        console.log(`feed...response = ${JSON.stringify(response)}`);
         if (response.status === 200) {
-          setFeedVideos(response.data.videoList);
+          // setFeedVideos(response.data.videoList);
+          setFeedVideos(response.data.videoList.items);
         }
       } catch (error) {
         console.error(error);
@@ -31,11 +33,11 @@ const Feed = ({ optionsForFetchingFeedVideos }) => {
     };
 
     // for fetching data from API uncomment below line
-    fetchFeedData();
+    // fetchFeedData();
 
     // for fetching data from local uncomment below 2 lines
-    // setFeedVideos(data.items);
-    // setFeedVideosLoaded(true);
+    setFeedVideos(data.items);
+    setFeedVideosLoaded(true);
   }, [optionsForFetchingFeedVideos]);
 
   return (

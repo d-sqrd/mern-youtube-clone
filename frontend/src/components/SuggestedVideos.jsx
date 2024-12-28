@@ -5,11 +5,8 @@ import { Box } from "@mui/material";
 import VideoCard from "./VideoCard";
 import Loading from "./Loading";
 
-const SuggestedVideos = (props) => {
-  const { parentVideoId } = props;
-  // const parentVideoId = "parentVideoId";
-  console.log(`ParentVidId = ${parentVideoId}`);
-  // const [relatedVideoId, setRelatedVideoId] = useState("");
+const SuggestedVideos = ({ parentVideoId }) => {
+  // console.log(`ParentVidId = ${parentVideoId}`);
   const [suggestedVideos, setSuggestedVideos] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
@@ -17,32 +14,26 @@ const SuggestedVideos = (props) => {
     const fetchSuggestedVideos = async () => {
       const options = {
         method: "GET",
-        url: `${process.env.REACT_APP_URL}/search`,
+        url: "http://localhost:5000/api/v1/getRelatedVideos",
         params: {
-          relatedToVideoId: parentVideoId,
-          part: "id,snippet",
-          type: "video",
-          maxResults: "10",
-        },
-        headers: {
-          "x-rapidapi-key": process.env.REACT_APP_API_KEY,
-          "x-rapidapi-host": process.env.REACT_APP_HOST,
+          relatedVideoId: parentVideoId,
         },
       };
-
       try {
         const response = await axios.request(options);
-        setSuggestedVideos(response.data.items);
+        if (response.status === 200) {
+          setSuggestedVideos(response.data.videoList);
+        } else {
+          throw new Error();
+        }
+      } catch (err) {
+        console.log(`Suggested-vids...error = ${err}`);
+      } finally {
         setIsDataLoaded(true);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
       }
     };
-    // setRelatedVideoId(parentVideoId);
     // fetchSuggestedVideos();
     setSuggestedVideos(suggestedVideosLocal.items);
-    setIsDataLoaded(true);
   }, [parentVideoId]);
   return (
     <Box
@@ -52,7 +43,7 @@ const SuggestedVideos = (props) => {
         maxWidth: "100%",
       }}
     >
-      {isDataLoaded ? (
+      {isDataLoaded && suggestedVideos ? (
         suggestedVideos.map((videoDetail, index) => {
           return (
             <Box key={index}>

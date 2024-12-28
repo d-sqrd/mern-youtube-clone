@@ -160,7 +160,7 @@ export default function Navbar({ setSearchbarString }) {
           </Box>
           {/* Sidebar Box */}
           <Box sx={{ mt: 2 }}>
-            <SideBar />
+            <SideBar setSearchbarString={setSearchbarString} />
           </Box>
         </Box>
         {/* Search Bar Box */}
