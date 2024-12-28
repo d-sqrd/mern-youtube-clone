@@ -11,21 +11,23 @@ const VideoCard = ({ videoDetail }) => {
   const thumbnailSrc =
     videoDetail?.snippet?.thumbnails?.default?.url ||
     videoDetail?.snippet?.thumbnails?.medium?.url ||
-    videoDetail?.snippet?.thumbnails?.high?.url;
+    videoDetail?.snippet?.thumbnails?.high?.url ||
+    "https://picsum.photos/600/200";
   const navigate = useNavigate();
-  // const { updateVideoDetail } = useContext(AppContext);
-  // console.log(`videoCard - videoDetail: ${JSON.stringify(videoDetail)}`);
   const handleRouteToVideo = () => {
     navigate(`/video/${videoDetail.id.videoId}`, {
       state: { videoDetail: videoDetail },
     });
-    // console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
   };
   const handleRouteToChannel = () => {
     navigate(`/channel/${videoDetail.snippet.channelId}`, {
-      state: { videoDetail: videoDetail },
+      state: {
+        channelDetail: {
+          channelName: videoDetail.snippet.channelTitle,
+          channelId: videoDetail.snippet.channelId,
+        },
+      },
     });
-    // console.log(`Inside handleClick..props = ${JSON.stringify(videoDetail)}\n`);
   };
   const window = useWindowSize();
   return (

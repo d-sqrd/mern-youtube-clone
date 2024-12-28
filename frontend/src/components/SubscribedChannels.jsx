@@ -59,12 +59,15 @@ const SubscribedChannels = () => {
         }
       }
     };
-    // fetchSubscribedChannels();
-    console.log(
-      `subscribed-channels...channelList = ${JSON.stringify(channelList)}`
-    );
-    setSubscribedChannelList(channelList);
-    setIsDataLoaded(true);
+    // when app is live uncomment below line
+    fetchSubscribedChannels();
+
+    // when app is live comment below lines
+    // console.log(
+    //   `subscribed-channels...channelList = ${JSON.stringify(channelList)}`
+    // );
+    // setSubscribedChannelList(channelList);
+    // setIsDataLoaded(true);
   }, []);
   return (
     <Box sx={{ height: "100vh" }}>

@@ -13,12 +13,10 @@ import Feed from "./Feed";
 const ChannelPage = () => {
   const location = useLocation();
   const channel = location.state.channelDetail; // this will only store channelId and the channel name _> use this to fetch other details related to the channel from the API
-  const backgroundImgUrl =
-    channel.items?.brandingSettings?.image?.bannerExternalUrl;
-  const thumbnailImgUrl =
-    channel.items.snippet.thumbnails?.default?.url ||
-    channel.items.snippet.thumbnails?.medium?.url ||
-    channel.items.snippet.thumbnails?.high?.url;
+  const backgroundImgUrl = "https://picsum.photos/600/200";
+  const thumbnailImgUrl = "https://picsum.photos/200";
+  const subscriberCount = Math.floor(Math.random() * 1000000000);
+
   //   console.log(
   //     `channel-page...channel = ${JSON.stringify(channel.items.snippet)}`
   //   );
@@ -58,8 +56,11 @@ const ChannelPage = () => {
     method: "GET",
     url: "http://localhost:5000/api/v1/feed/videos",
     params: {
-      // channelId: channel.channelId,  // should work like this _> refactor code
-      channelId: channel.items.id,
+      // when app is live uncomment below line
+      channelId: channel.channelId,
+
+      // when app is live comment below line
+      // channelId: channel.items.id,
     },
   };
 
@@ -121,33 +122,29 @@ const ChannelPage = () => {
                 marginRight: 2,
               }}
               image={thumbnailImgUrl}
-              alt={channel.items.snippet.title}
+              alt={channel.channelName}
             />
             <Box>
-              <Typography variant="h4">
-                {channel.items.snippet.title}
-              </Typography>
+              <Typography variant="h4">{channel.channelName}</Typography>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="p" sx={{ marginRight: 1 }}>
-                  {channel.items.statistics?.subscriberCount >= 1000000000
-                    ? `$(channel.items.statistics?.subscriberCount / 1000000000)B `
-                    : channel.items.statistics?.subscriberCount < 1000000000 &&
-                      channel.items.statistics?.subscriberCount >= 1000000
-                    ? `${channel.items.statistics?.subscriberCount / 1000000}M `
-                    : channel.items.statistics?.subscriberCount >= 1000 &&
-                      channel.items.statistics?.subscriberCount < 1000000
-                    ? `${channel.items.statistics?.subscriberCount / 1000}K `
-                    : channel.items.statistics?.subscriberCount}
+                  {subscriberCount >= 1000000000
+                    ? `${(subscriberCount / 1000000000).toFixed(2)}B `
+                    : subscriberCount < 1000000000 && subscriberCount >= 1000000
+                    ? `${(subscriberCount / 1000000).toFixed(2)}M `
+                    : subscriberCount >= 1000 && subscriberCount < 1000000
+                    ? `${(subscriberCount / 1000).toFixed(2)}K `
+                    : subscriberCount}
                   subscribers
                 </Typography>
-                <CircleIcon
+                {/* <CircleIcon
                   sx={{
                     transform: "scale(0.2)",
                   }}
                 />
                 <Typography variant="p" sx={{ marginRight: 1 }}>
-                  {channel.items.statistics?.videoCount} videos
-                </Typography>
+                  {videoCount} videos
+                </Typography> */}
               </Box>
               <Typography variant="subtitle2" sx={{ marginTop: 1 }}>
                 {channel.items?.brandingSettings?.channel?.description}
@@ -173,43 +170,6 @@ const ChannelPage = () => {
           <Feed optionsForFetchingFeedVideos={optionsForFetchingFeedVideos} />
         </Box>
       </Box>
-
-      {/* old code */}
-      {/* <Box>
-        <Box sx={{ display: "flex", margin: 1 }}>
-          <CardMedia
-            component="img"
-            sx={{
-              width: "10%",
-              height: "10%",
-              borderRadius: "50%",
-              objectFit: "fill",
-            }}
-            image={thumbnailImgUrl}
-            alt={channel.items.snippet.title}
-          />
-          <CardContent sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography variant="h4">{channel.items.snippet.title}</Typography>
-            <Box sx={{ marginTop: 1 }}>
-              <Typography variant="p" sx={{ marginRight: 1 }}>
-                {channel.items.statistics?.subscriberCount} subscribers
-              </Typography>
-              <Typography variant="p" sx={{ marginRight: 1 }}>
-                ||
-              </Typography>
-              <Typography variant="p" sx={{ marginRight: 1 }}>
-                {channel.items.statistics?.videoCount} videos
-              </Typography>
-            </Box>
-            <Typography variant="subtitle2" sx={{ marginTop: 1 }}>
-              {channel.items?.brandingSettings?.channel?.description}
-            </Typography>
-          </CardContent>
-          <Box>
-            <Feed />
-          </Box>
-        </Box>
-      </Box> */}
     </Box>
   );
 };

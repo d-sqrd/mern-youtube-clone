@@ -1,5 +1,4 @@
 require("dotenv").config();
-const axios = require("axios");
 const { youtube } = require("@googleapis/youtube");
 const yt = youtube({ version: "v3", auth: process.env.YOUTUBE_API_KEY });
 
@@ -10,6 +9,7 @@ const getFeedVideos = async (req, res) => {
       type: "video",
       q: req.query.searchString || "music",
       channelId: req.query.channelId,
+      maxResults: 50,
     });
     console.log(JSON.stringify(response.data));
     res.status(200).json({ videoList: response.data });

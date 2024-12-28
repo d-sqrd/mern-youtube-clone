@@ -4,18 +4,26 @@ import useWindowSize from "../hooks/useWindowSize";
 import { useNavigate } from "react-router-dom";
 
 const SubscribedChannel = ({ channel }) => {
+  /*
+    channel = {
+      channelName: <...>,
+      channelId: <...>
+    }
+  */
   console.log(`subscribed-channel...channel = ${JSON.stringify(channel)}`);
   const windowHook = useWindowSize();
   const navigate = useNavigate();
-  const thumbnailSrc =
-    channel.items?.snippet?.thumbnails?.high?.url ||
-    channel.items?.snippet?.thumbnails?.medium?.url ||
-    channel.items?.snippet?.thumbnails?.default?.url;
+  const thumbnailSrc = "https://picsum.photos/200";
 
   const handleRouteToChannelPage = () => {
-    navigate(`/channel/${channel.items.id}`, {
+    // when app is live uncomment below lines
+    navigate(`/channel/${channel.channelId}`, {
       state: { channelDetail: channel },
     });
+    // when app is live comment below lines
+    // navigate(`/channel/${channel.items.id}`, {
+    //   state: { channelDetail: channel },
+    // });
   };
   return (
     <Box
@@ -46,7 +54,8 @@ const SubscribedChannel = ({ channel }) => {
             component="img"
             sx={{ maxWidth: "30%", height: "100%", objectFit: "fill" }}
             image={thumbnailSrc}
-            alt={channel.items?.snippet?.title}
+            // alt={channel.items?.snippet?.title} // when showing data from local dummy file
+            alt={channel.channelName} // when app is live
           />
           <CardContent
             sx={{
@@ -65,9 +74,15 @@ const SubscribedChannel = ({ channel }) => {
               sx={{ fontWeight: "600" }}
               onClick={handleRouteToChannelPage}
             >
-              {channel.items?.snippet?.title.length > 50
+              {/* comment below code when app is live */}
+              {/* {channel.items?.snippet?.title.length > 50
                 ? channel.items?.snippet?.title.slice(0, 50) + "..."
-                : channel.items?.snippet?.title}
+                : channel.items?.snippet?.title} */}
+
+              {/* uncomment below code when app is live */}
+              {channel.channelName.length > 50
+                ? channel.channelName.slice(0, 50) + "..."
+                : channel.channelName}
             </Link>
           </CardContent>
         </Box>
