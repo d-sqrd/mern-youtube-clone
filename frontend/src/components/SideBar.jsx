@@ -73,7 +73,7 @@ const SideBar = ({ setSearchbarString }) => {
           <Box
             style={{
               position: "fixed",
-              background: "#FFF",
+              background: "#0f0f0f",
               height: "100%",
               width: "20%",
               borderTopRightRadius: "10px",
@@ -85,7 +85,8 @@ const SideBar = ({ setSearchbarString }) => {
               }),
               top: 0,
               left: 0,
-              boxShadow: "2px solid black",
+              color: "#fff",
+              backgroundColor: "var(--background-color)",
             }}
           >
             <Box
@@ -98,8 +99,6 @@ const SideBar = ({ setSearchbarString }) => {
                 ...(window.width < 1000 && {
                   alignItems: "center",
                   justifyContent: "space-around",
-                  marginLeft: 1,
-                  marginRight: 1,
                 }),
               }}
             >
@@ -138,18 +137,21 @@ const SideBar = ({ setSearchbarString }) => {
                     key={index}
                     sx={{
                       borderRadius: "10px",
-                      boxShadow:
-                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                       height: "10%",
                       display: "flex",
                       margin: 2,
+                      // width: "100%",
                       ...(window.width < 1000 && {
-                        width: "100%",
+                        width: "90%",
+                        margin: 0,
                       }),
+                      color: "#fff",
+                      backgroundColor: "var(--background-color)",
+                      boxShadow: "1px 1px 10px  var(--box-shadow-color)",
                     }}
                   >
                     <ListItemButton onClick={() => handleOnClick(categoryItem)}>
-                      <ListItemIcon>
+                      <ListItemIcon sx={{ color: "white" }}>
                         {getSidebarIcon(categoryItem)}
                       </ListItemIcon>
                       <ListItemText primary={categoryItem} />

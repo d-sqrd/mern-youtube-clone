@@ -58,7 +58,7 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
       sx={{
         display: "flex",
         justifyContent: "center",
-        background: "#ef5f",
+        // background: "#ef5f",
       }}
     >
       <Card
@@ -68,8 +68,9 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
           height: "25vh",
           margin: 1,
           ...(windowHook.width < 1000 && { width: "100%", height: "30%" }),
-          boxShadow:
-            " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+          color: "#fff",
+          backgroundColor: "var(--background-color)",
+          boxShadow: "1px 1px 10px var(--box-shadow-color)",
         }}
       >
         <Box
@@ -85,14 +86,14 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
             image={thumbnailSrc}
             alt={historyItem.videoDetail.snippet.title}
           />
-
           <CardContent sx={{ display: "flex", flexDirection: "column" }}>
             <Link
               component="button"
               underline="none"
               align="left"
               variant="subtitle1"
-              color="textPrimary"
+              // color="textPrimary"
+              color="#fff"
               sx={{ fontWeight: "600" }}
               onClick={handleRouteToVideo}
             >
@@ -105,7 +106,8 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
               underline="none"
               align="left"
               variant="subtitle2"
-              color="textSecondary"
+              // color="textSecondary"
+              color="white"
             >
               {historyItem.videoDetail.snippet.channelTitle}
             </Link>
@@ -115,7 +117,7 @@ const WatchHistoryItem = ({ historyItem, setWatchHistoryList }) => {
               opacity: "0.5",
               color: "gray",
               marginLeft: "auto",
-              "&:hover": { color: "red", opacity: "1" },
+              "&:hover": { color: "#FF3131", opacity: "1" },
             }}
             onClick={() => handleDelete(historyItem)}
           >

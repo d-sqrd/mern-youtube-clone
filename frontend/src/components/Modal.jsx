@@ -11,7 +11,7 @@ const Modal = ({ isOpen, onClose, children }) => {
       <Dialog open={isLoginModalVisible} onClose={toggleLoginModal}>
         <div
           style={{
-            background: "white",
+            background: "#fff",
             height: 150,
             width: 240,
             margin: "auto",

@@ -39,8 +39,9 @@ const SubscribedChannel = ({ channel }) => {
           height: "25vh",
           margin: 1,
           ...(windowHook.width < 1000 && { width: "100%", height: "30%" }),
-          boxShadow:
-            " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+          color: "#fff",
+          backgroundColor: "var(--background-color)",
+          boxShadow: "1px 1px 10px  var(--box-shadow-color)",
         }}
       >
         <Box
@@ -70,7 +71,8 @@ const SubscribedChannel = ({ channel }) => {
               component="button"
               underline="none"
               variant="h5"
-              color="textPrimary"
+              // color="textPrimary"
+              color="#fff"
               sx={{ fontWeight: "600" }}
               onClick={handleRouteToChannelPage}
             >

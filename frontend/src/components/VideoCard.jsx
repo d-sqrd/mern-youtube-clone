@@ -31,11 +31,19 @@ const VideoCard = ({ videoDetail }) => {
   };
   const window = useWindowSize();
   return (
-    <Box sx={{ margin: 1, ...(window.width >= 500 && { mt: 0 }) }}>
+    <Box
+      sx={{
+        margin: 1,
+        ...(window.width >= 500 && { mt: 0 }),
+      }}
+    >
       <Card
         sx={{
           height: 250,
           borderRadius: "10px",
+          color: "#fff",
+          backgroundColor: "var(--background-color)",
+          boxShadow: "1px 1px 10px  #444",
         }}
       >
         <CardMedia
@@ -55,7 +63,8 @@ const VideoCard = ({ videoDetail }) => {
             underline="none"
             onClick={handleRouteToVideo}
             align="left"
-            color="textPrimary"
+            // color="textPrimary"
+            color="#fff"
             sx={{ fontSize: "medium", fontWeight: "600" }}
           >
             {videoDetail?.snippet?.title?.length > 50
@@ -69,7 +78,8 @@ const VideoCard = ({ videoDetail }) => {
             underline="none"
             onClick={handleRouteToChannel}
             align="left"
-            color="textSecondary"
+            // color="textSecondary"
+            color="white"
             sx={{ fontSize: "small", fontWeight: "600" }}
           >
             {videoDetail?.snippet?.channelTitle}

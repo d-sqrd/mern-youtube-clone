@@ -50,7 +50,6 @@ const LikedVideos = () => {
   return (
     <Box
       sx={{
-        // background: "#ef5f",
         height: "100vh",
       }}
     >

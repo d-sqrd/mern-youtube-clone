@@ -1,4 +1,5 @@
 import "./App.css";
+import "./variables.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import VideoStreamPage from "./components/VideoStreamPage";
@@ -22,9 +23,11 @@ function App() {
           <LoginModal />
         </Box>
         <Box
-          sx={{
-            background: "#ef5f",
-          }}
+          sx={
+            {
+              // background: "#ef5f",
+            }
+          }
         >
           <Routes>
             <Route

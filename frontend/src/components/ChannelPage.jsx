@@ -65,7 +65,9 @@ const ChannelPage = () => {
   };
 
   return (
-    <Box sx={{ border: "1px solid magenta" }}>
+    <Box
+    // sx={{ border: "1px solid magenta" }}
+    >
       <Box
         sx={{
           width: "100%",
@@ -89,9 +91,10 @@ const ChannelPage = () => {
       <Box
         sx={{
           height: "1px",
-          width: "100%",
-          border: "1px solid black",
-          margin: 1,
+          width: "95%",
+          border: "1px solid #fff",
+          margin: "5px auto",
+          backgroundColor: "#fff",
         }}
       />
       {/* Below box will contain everything below the banner picture */}
@@ -155,9 +158,11 @@ const ChannelPage = () => {
         <Box
           sx={{
             height: "1px%",
-            width: "100%",
-            border: "1px solid black",
-            margin: 1,
+            width: "95%",
+            border: "1px solid #fff",
+            margin: "5px auto",
+            backgroundColor: "#fff",
+            borderRadius: "50%",
           }}
         />
         {/* below box will contain channel videos _> basically the Feed component */}

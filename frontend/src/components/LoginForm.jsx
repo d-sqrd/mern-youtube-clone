@@ -1,23 +1,7 @@
 import React, { useContext, useRef } from "react";
-import { Button, styled, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
-
-const StyledDiv = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: theme.spacing(2),
-
-  "& .MuiTextField-root": {
-    margin: theme.spacing(1),
-    width: "25vw",
-  },
-  "& .MuiButtonBase-root": {
-    margin: theme.spacing(2),
-  },
-}));
 
 const LoginForm = () => {
   const emailInputRef = useRef(null);
@@ -43,11 +27,6 @@ const LoginForm = () => {
         localStorage.setItem("loggedInUserEmail", emailInputRef.current.value);
         localStorage.setItem("loginAuthToken", response.data.authToken);
       }
-      // console.log(
-      //   `login-form local storage-email = ${localStorage.getItem(
-      //     "loggedInUserEmail"
-      //   )}`
-      // );
     } catch (error) {
       // add UI to handle error
       console.log(`login-form error = ${error}`);
@@ -58,36 +37,100 @@ const LoginForm = () => {
   return (
     <>
       {isLoginModalVisible && (
-        <StyledDiv>
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            padding: 2,
+            backgroundColor: "var(--background-color)",
+          }}
+        >
           <form onSubmit={handleSubmit}>
-            <TextField
-              label="Email"
-              variant="filled"
-              type="email"
-              required
-              ref={emailInputRef}
-              onChange={(e) => (emailInputRef.current.value = e.target.value)}
-            />
-            <TextField
-              label="Password"
-              variant="filled"
-              type="password"
-              required
-              ref={passwordInputRef}
-              onChange={(e) =>
-                (passwordInputRef.current.value = e.target.value)
-              }
-            />
-            <div>
-              <Button variant="contained" onClick={toggleLoginModal}>
-                Cancel
-              </Button>
-              <Button type="submit" variant="contained" color="primary">
-                Login
-              </Button>
-            </div>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                color: "#fff",
+              }}
+            >
+              <TextField
+                label="Email"
+                variant="filled"
+                type="email"
+                required
+                // color="#0f0f0f"
+                ref={emailInputRef}
+                onChange={(e) => (emailInputRef.current.value = e.target.value)}
+                sx={{
+                  marginBottom: 2,
+                  backgroundColor: "#fff",
+                  border: "0",
+                  borderRadius: "10px",
+                }}
+              />
+              <TextField
+                label="Password"
+                variant="filled"
+                type="password"
+                required
+                ref={passwordInputRef}
+                onChange={(e) =>
+                  (passwordInputRef.current.value = e.target.value)
+                }
+                sx={{
+                  marginBottom: 2,
+                  backgroundColor: "#fff",
+                  border: "0",
+                  borderRadius: "10px",
+                }}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  marginBottom: 2,
+                }}
+              >
+                <Button
+                  variant="contained"
+                  onClick={toggleLoginModal}
+                  sx={{
+                    border: "1px solid #fff",
+                    borderRadius: "100px",
+                    backgroundColor: "#000",
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    border: "1px solid #fff",
+                    borderRadius: "100px",
+                    backgroundColor: "#000",
+                  }}
+                >
+                  Login
+                </Button>
+              </Box>
+              <Box sx={{ textAlign: "center" }}>
+                <Typography>
+                  New User?{" "}
+                  <a
+                    href="#"
+                    onClick={() => toggleLoginModal()}
+                    style={{ color: "white" }}
+                  >
+                    Register Here
+                  </a>
+                </Typography>
+              </Box>
+            </Box>
           </form>
-        </StyledDiv>
+        </Box>
       )}
     </>
   );

@@ -11,49 +11,6 @@ const LikedVideo = ({ likedVideo }) => {
     likedVideo?.snippet?.thumbnails?.medium?.url ||
     likedVideo?.snippet?.thumbnails?.high?.url;
 
-  //   const handleDelete = async (likedVideo) => {
-  //     const authToken = localStorage.getItem("loginAuthToken");
-  //     const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
-  //     if (authToken && loggedInUserEmail) {
-  //       const URL = "http://localhost:5000/api/v1/deleteFromWatchHistory";
-  //       try {
-  //         const optionsForDelete = {
-  //           method: "DELETE",
-  //           url: URL,
-  //           data: {
-  //             email: loggedInUserEmail,
-  //             objectId: likedVideo._id,
-  //           },
-  //           headers: {
-  //             authorization: `Bearer ${authToken}`,
-  //           },
-  //         };
-  //         const responseAfterDelete = await axios.request(optionsForDelete);
-  //         if (responseAfterDelete.statusCode === 200) {
-  //           // TODO::intimate user on the UI
-  //         }
-  //         const optionsForFetch = {
-  //           method: "GET",
-  //           url: URL,
-  //           data: {
-  //             email: loggedInUserEmail,
-  //           },
-  //           headers: {
-  //             authorization: `Bearer ${authToken}`,
-  //           },
-  //         };
-  //         const updatedLikedVideoList = await axios.request(optionsForFetch);
-  //         if (updatedLikedVideoList) {
-  //             setLikedVideoList(updatedLikedVideoList);
-  //           // setWatchHistoryList(updatedWatchHistoryList.data.watchHistory);
-  //         }
-  //       } catch (error) {
-  //         // TODO::add UI to handle error
-  //         console.log(`watch-history error = ${error}`);
-  //       }
-  //     }
-  //   };
-
   const handleRouteToVideo = () => {
     navigate(`/video/${likedVideo.id.videoId}`, {
       state: { videoDetail: likedVideo },
@@ -74,8 +31,9 @@ const LikedVideo = ({ likedVideo }) => {
           height: "25vh",
           margin: 1,
           ...(windowHook.width < 1000 && { width: "100%", height: "30%" }),
-          boxShadow:
-            " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+          color: "#fff",
+          backgroundColor: "var(--background-color)",
+          boxShadow: "1px 1px 10px  var(--box-shadow-color)",
         }}
       >
         <Box
@@ -98,7 +56,8 @@ const LikedVideo = ({ likedVideo }) => {
               underline="none"
               align="left"
               variant="subtitle1"
-              color="textPrimary"
+              // color="textPrimary"
+              color="#fff"
               sx={{ fontWeight: "600" }}
               onClick={handleRouteToVideo}
             >
@@ -111,22 +70,12 @@ const LikedVideo = ({ likedVideo }) => {
               underline="none"
               align="left"
               variant="subtitle2"
-              color="textSecondary"
+              // color="textSecondary"
+              color="#fff"
             >
               {likedVideo?.snippet?.channelTitle}
             </Link>
           </CardContent>
-          {/* <Button
-            sx={{
-              opacity: "0.5",
-              color: "gray",
-              marginLeft: "auto",
-              "&:hover": { color: "red", opacity: "1" },
-            }}
-            onClick={() => handleDelete(likedVideo)}
-          >
-            <DeleteIcon />
-          </Button> */}
         </Box>
       </Card>
     </Box>

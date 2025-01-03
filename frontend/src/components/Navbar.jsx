@@ -45,7 +45,8 @@ const Search = styled("div")(({ theme }) => ({
 // }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  // color: "inherit",
+  // backgroundColor: "black",
   width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
@@ -115,11 +116,8 @@ export default function Navbar({ setSearchbarString }) {
     <Box
       sx={{
         flexGrow: 1,
-        // height: "200px",
-        // border: "1px solid black",
       }}
     >
-      {/* <AppBar position="static"> */}
       <Box
         container
         display="flex"
@@ -127,7 +125,7 @@ export default function Navbar({ setSearchbarString }) {
         alignItems="center"
         justifyContent="space-between"
         sx={{
-          backgroundColor: "#fff",
+          backgroundColor: "var(--background-color)",
           pt: 1,
         }}
       >
@@ -150,7 +148,7 @@ export default function Navbar({ setSearchbarString }) {
                 edge="start"
                 color="inherit"
                 aria-label="menu"
-                sx={{ mr: 2 }}
+                // sx={{ mr: 2 }}
                 onClick={handleYTIcon}
               >
                 <YouTubeIcon sx={{ color: "red" }} />
@@ -192,6 +190,7 @@ export default function Navbar({ setSearchbarString }) {
                 variant="contained"
                 onClick={toggleLoginModal}
                 sx={{
+                  border: "1px solid #fff",
                   borderRadius: "100px",
                   backgroundColor: "#000",
                   color: "#FFFFFF",
@@ -252,7 +251,6 @@ export default function Navbar({ setSearchbarString }) {
           )}
         </Box>
       </Box>
-      {/* </AppBar> */}
     </Box>
   );
 }
