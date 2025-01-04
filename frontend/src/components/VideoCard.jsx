@@ -43,7 +43,7 @@ const VideoCard = ({ videoDetail }) => {
           borderRadius: "10px",
           color: "#fff",
           backgroundColor: "var(--background-color)",
-          boxShadow: "1px 1px 10px  #444",
+          boxShadow: "1px 1px 10px  var(--box-shadow-color)",
         }}
       >
         <CardMedia

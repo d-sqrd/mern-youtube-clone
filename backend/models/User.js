@@ -5,11 +5,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your name"],
   },
-  userName: {
-    type: String,
-    required: [true, "Please enter an username"],
-    unique: true,
-  },
+  // TODO:: find use cases for userName and then add it
+  // userName: {
+  //   type: String,
+  //   required: [true, "Please enter an username"],
+  //   unique: true,
+  // },
   email: {
     type: String,
     required: [true, "Please provide email"],

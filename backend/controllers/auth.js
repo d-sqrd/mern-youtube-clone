@@ -16,9 +16,7 @@ const register = async (req, res) => {
       process.env.JWT_SECRET
     );
     console.log(`Inside /register route...`);
-    res
-      .status(200)
-      .send({ user: { userName: req.body.userName }, authToken: jwtToken });
+    res.status(200).send({ message: "Success", authToken: jwtToken });
   } catch (err) {
     console.log(err);
     res.status(400).json({ error: err.message });

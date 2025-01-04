@@ -1,24 +1,39 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
 
 const LoginForm = () => {
+  const nameInputRef = useRef(null);
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const { isLoginModalVisible, toggleLoginModal } = useContext(AppContext);
+  const [isUserRegistration, setIsUserRegistration] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const options = {
-        method: "POST",
-        url: "http://localhost:5000/api/v1/auth/login",
-        data: {
-          email: emailInputRef.current.value,
-          password: passwordInputRef.current.value,
-        },
-      };
+      let options = {};
+      if (isUserRegistration) {
+        options = {
+          method: "POST",
+          url: "http://localhost:5000/api/v1/auth/register",
+          data: {
+            name: nameInputRef.current.value,
+            email: emailInputRef.current.value,
+            password: passwordInputRef.current.value,
+          },
+        };
+      } else {
+        options = {
+          method: "POST",
+          url: "http://localhost:5000/api/v1/auth/login",
+          data: {
+            email: emailInputRef.current.value,
+            password: passwordInputRef.current.value,
+          },
+        };
+      }
       const response = await axios.request(options);
       console.log(`login-form response = ${response}`);
       // if login was successful
@@ -54,6 +69,25 @@ const LoginForm = () => {
                 color: "#fff",
               }}
             >
+              {isUserRegistration && (
+                <TextField
+                  label="Name"
+                  variant="filled"
+                  type="text"
+                  required
+                  // color="#0f0f0f"
+                  ref={nameInputRef}
+                  onChange={(e) =>
+                    (nameInputRef.current.value = e.target.value)
+                  }
+                  sx={{
+                    marginBottom: 2,
+                    backgroundColor: "#fff",
+                    border: "0",
+                    borderRadius: "10px",
+                  }}
+                />
+              )}
               <TextField
                 label="Email"
                 variant="filled"
@@ -103,30 +137,62 @@ const LoginForm = () => {
                 >
                   Cancel
                 </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                    border: "1px solid #fff",
-                    borderRadius: "100px",
-                    backgroundColor: "#000",
-                  }}
-                >
-                  Login
-                </Button>
+                {!isUserRegistration && (
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      border: "1px solid #fff",
+                      borderRadius: "100px",
+                      backgroundColor: "#000",
+                    }}
+                    // onClick={handleLogin}
+                  >
+                    Login
+                  </Button>
+                )}
+                {isUserRegistration && (
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      border: "1px solid #fff",
+                      borderRadius: "100px",
+                      backgroundColor: "#000",
+                    }}
+                    // onClick={handleRegister}
+                  >
+                    Register
+                  </Button>
+                )}
               </Box>
               <Box sx={{ textAlign: "center" }}>
-                <Typography>
-                  New User?{" "}
-                  <a
-                    href="#"
-                    onClick={() => toggleLoginModal()}
-                    style={{ color: "white" }}
-                  >
-                    Register Here
-                  </a>
-                </Typography>
+                {isUserRegistration && (
+                  <Typography>
+                    Existing User?{" "}
+                    <a
+                      href="#"
+                      onClick={() => setIsUserRegistration(false)}
+                      style={{ color: "white" }}
+                    >
+                      Login Here
+                    </a>
+                  </Typography>
+                )}
+                {!isUserRegistration && (
+                  <Typography>
+                    New User?{" "}
+                    <a
+                      href="#"
+                      onClick={() => setIsUserRegistration(true)}
+                      style={{ color: "white" }}
+                    >
+                      Register Here
+                    </a>
+                  </Typography>
+                )}
               </Box>
             </Box>
           </form>
