@@ -33,7 +33,7 @@ const SuggestedVideos = ({ parentVideoId }) => {
       }
     };
     // fetchSuggestedVideos();
-    setSuggestedVideos(suggestedVideosLocal.items);
+    // setSuggestedVideos(suggestedVideosLocal.items);
   }, [parentVideoId]);
   return (
     <Box

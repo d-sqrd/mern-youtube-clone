@@ -278,24 +278,24 @@ const VideoStreamPage = () => {
   const windowHook = useWindowSize();
   // console.log(`vid-stream-page - window = ${JSON.stringify(window)}`);
   return (
-    <Box sx={{ pt: 1, background: "#fff" }}>
+    <Box
+      sx={{
+        pt: 1,
+      }}
+    >
       <Grid2 container display="flex" direction="row">
         {/* Parent container for the left side of the page */}
         <Grid2 size={{ xs: 12, md: 9 }}>
           {/* Parent container Box for the left side of the page - includes the video player, video title, channel title, like, dislike, subscribe and unsubscribe buttons */}
           <Box
             sx={{
-              // margin: 1,
               position: "sticky",
               top: "8.5%",
               ml: 1,
               mr: 1,
-              // border: "3px solid magenta",
               display: "flex",
               flexDirection: "column",
               ...(windowHook.width < 500 && { mb: 1 }),
-              // top: 0,
-              // pt: 1,
             }}
           >
             {/* Container Box for React Player */}
@@ -356,7 +356,7 @@ const VideoStreamPage = () => {
                       sx={{
                         color: "black",
                         // backgroundColor: "black",
-                        border: "1px solid black",
+                        border: "1px solid #fff",
                         borderTopLeftRadius: "100px",
                         borderBottomLeftRadius: "100px",
                         borderRight: 0,
@@ -382,7 +382,7 @@ const VideoStreamPage = () => {
                       onClick={handleUnlikeClick}
                       sx={{
                         color: "black",
-                        border: "1px solid black",
+                        border: "1px solid #fff",
                         borderTopRightRadius: "100px",
                         borderBottomRightRadius: "100px",
                         mr: 2,
@@ -406,6 +406,7 @@ const VideoStreamPage = () => {
                         variant="contained"
                         onClick={handleSubscribe}
                         sx={{
+                          border: "1px solid #fff",
                           backgroundColor: "#000",
                           color: "#FFFFFF",
                           borderRadius: "100px",
@@ -419,6 +420,7 @@ const VideoStreamPage = () => {
                         variant="contained"
                         onClick={handleUnsubscribe}
                         sx={{
+                          border: "1px solid #fff",
                           backgroundColor: "#000",
                           color: "#FFFFFF",
                           borderRadius: "100px",
