@@ -70,7 +70,13 @@ const SubscribedChannels = () => {
     // setIsDataLoaded(true);
   }, []);
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ height: "100%" }}>
+      <Typography
+        variant="h3"
+        sx={{ marginTop: 3, marginLeft: 3, marginBottom: 1 }}
+      >
+        Subscribed Channels
+      </Typography>
       {/* UI when user is not logged in but tries to access Subscribed Channels route */}
       {!localStorage.getItem("loginAuthToken") && (
         <Box
@@ -82,7 +88,7 @@ const SubscribedChannels = () => {
           }}
         >
           <Typography variant="h5">
-            Please Login to view your Subcribed Channels
+            Please Login to view your Subscribed Channels
           </Typography>
         </Box>
       )}

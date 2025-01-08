@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+  /* border: 5px solid white; */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -14,6 +19,8 @@ body {
   background-color: #0f0f0f;
   color: #fff;
   box-shadow: "1px 1px 10px  #444";
+  /* border: 3px solid pink; */
+  height: 100%;
 }
 
 code {

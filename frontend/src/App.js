@@ -18,17 +18,22 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Box sx={{ position: "sticky", top: 0, zIndex: "100" }}>
+        {/* <Box sx={{ position: "sticky", top: 0, zIndex: "100" }}>
           <Navbar setSearchbarString={setSearchbarString} />
           <LoginModal />
-        </Box>
+        </Box> */}
         <Box
           sx={
             {
-              // background: "#ef5f",
+              // height: "100%",
+              // border: "2px solid yellow",
             }
           }
         >
+          <Box sx={{ position: "sticky", top: 0, zIndex: "100" }}>
+            <Navbar setSearchbarString={setSearchbarString} />
+            <LoginModal />
+          </Box>
           <Routes>
             <Route
               path="/"

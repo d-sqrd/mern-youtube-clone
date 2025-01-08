@@ -56,7 +56,18 @@ const WatchHistory = () => {
     // setIsDataLoaded(true);
   }, []);
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box
+      sx={{
+        height: "100%",
+        // border: "2px solid white",
+      }}
+    >
+      <Typography
+        variant="h3"
+        sx={{ marginTop: 3, marginLeft: 3, marginBottom: 1 }}
+      >
+        Watch History
+      </Typography>
       {/* UI when user is not logged in but tries to access Watch History route */}
       {!localStorage.getItem("loginAuthToken") && (
         <Box
@@ -77,14 +88,14 @@ const WatchHistory = () => {
         <Box sx={{ width: "100%" }}>
           {/* UI when user has no watch history */}
           {isDataLoaded && watchHistoryList && !watchHistoryList.length && (
-            <Box sx={{ textAlign: "center" }}>
+            <Box sx={{ textAlign: "center", transform: "translateY(500%)" }}>
               <Typography variant="h5">
                 Please watch some videos to create your Watch History!
               </Typography>
             </Box>
           )}
           {/* UI when user has watch history */}
-          {isDataLoaded && watchHistoryList && watchHistoryList.length && (
+          {isDataLoaded && watchHistoryList && watchHistoryList.length > 0 && (
             <Box>
               {watchHistoryList.map((historyItem, index) => {
                 return (

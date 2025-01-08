@@ -50,9 +50,15 @@ const LikedVideos = () => {
   return (
     <Box
       sx={{
-        height: "100vh",
+        height: "100%",
       }}
     >
+      <Typography
+        variant="h3"
+        sx={{ marginTop: 3, marginLeft: 3, marginBottom: 1 }}
+      >
+        Liked Videos
+      </Typography>
       {/* UI when user is not logged in but tries to access Liked Videos route */}
       {!localStorage.getItem("loginAuthToken") && (
         <Box
@@ -81,7 +87,7 @@ const LikedVideos = () => {
             </Box>
           )}
           {/* UI when user has watch history */}
-          {isDataLoaded && likedVideoList && likedVideoList.length && (
+          {isDataLoaded && likedVideoList && likedVideoList.length > 0 && (
             <Box>
               {likedVideoList.map((likedVideo, index) => {
                 return (
